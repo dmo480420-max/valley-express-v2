@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Get a Quote – Valley Express Transport</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@200;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+    <style>
+        .quote-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 15px 40px rgba(140, 29, 64, 0.08);
+            border: 1px solid rgba(140, 29, 64, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--asu-maroon);
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #fafafa;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--asu-maroon);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(140, 29, 64, 0.1);
+            outline: none;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .service-option {
+            border: 2px solid #f0f0f0;
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-option:hover {
+            border-color: var(--asu-gold);
+            transform: translateY(-5px);
+        }
+
+        .service-option.active {
+            border-color: var(--asu-maroon);
+            background: rgba(140, 29, 64, 0.03);
+            box-shadow: 0 10px 20px rgba(140, 29, 64, 0.1);
+        }
+
+        .service-option.active::after {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--asu-maroon);
+        }
+
+        .service-option .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+            color: var(--asu-maroon);
+        }
+
+        .result-box {
+            margin-top: 3rem;
+            padding: 3rem;
+            background: linear-gradient(145deg, #fffcf5 0%, #fff8e7 100%);
+            border-radius: 24px;
+            text-align: center;
+            display: none;
+            border: 1px solid var(--asu-gold);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .price-display {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--asu-maroon);
+            font-family: 'Outfit', sans-serif;
+            margin: 1rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        .medical-toggle {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: #fff8f8;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid #ffeded;
+            transition: all 0.3s;
+        }
+        
+        .medical-toggle:hover {
+            border-color: var(--asu-maroon);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--asu-maroon) 0%, var(--maroon-dark) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 0 0 3rem 3rem;
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+    <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--asu-maroon); letter-spacing: -0.03em;">VALLEY <span style="color: var(--asu-gold);">EXPRESS</span></div>
+    <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="medical.html" class="nav-link">MEDICAL</a>
+        <a href="middle-mile.html" class="nav-link">MIDDLE MILE</a>
+        <a href="final-mile.html" class="nav-link">FINAL MILE</a>
+        <a href="logistics.html" class="nav-link">SOVEREIGN OS</a>
+        <a href="drivers.html" class="nav-link">DRIVERS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+        <a href="login.html" class="nav-link">LOGIN</a>
+        <a href="quote.html" class="btn-get-quote-nav" style="background-color: var(--asu-gold); color: var(--asu-maroon); padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; font-weight: 700;">GET QUOTE</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+    <h1 style="color: white; margin: 0;">Get Your Instant Quote</h1>
+    <p style="opacity: 0.9; font-size: 1.2rem; margin-top: 1rem;">Real-time pricing for Phoenix, Tucson, and Flagstaff corridors</p>
+</header>
+
+<div class="container" style="padding-bottom: 5rem;">
+    <div class="quote-container">
+        <div class="form-group">
+            <label><i class="fas fa-map-marker-alt"></i> Pickup Location</label>
+            <input type="text" id="pickup" placeholder="Enter pickup address">
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-flag-checkered"></i> Dropoff Location</label>
+            <input type="text" id="dropoff" placeholder="Enter destination address">
+        </div>
+
+        <div class="form-group">
+            <label><i class="fas fa-truck"></i> Select Vehicle Type</label>
+            <div class="service-grid">
+                <div class="service-option" onclick="selectService('sedan', this)">
+                    <i class="fas fa-car icon"></i>
+                    <strong>Sedan</strong>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">Documents / Small Pkg</p>
+                </div>
+                <div class="service-option" onclick="selectService('sprinter', this)">
+                    <i class="fas fa-shuttle-van icon"></i>
+                    <strong>Sprinter</strong>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">Pallets / Medical</p>
+                </div>
+                <div class="service-option" onclick="selectService('box', this)">
+                    <i class="fas fa-truck-moving icon"></i>
+                    <strong>Box Truck</strong>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.7;">Bulk Freight</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="medical-toggle">
+                <input type="checkbox" id="is-medical" style="width: 24px; height: 24px; cursor: pointer;">
+                <div>
+                    <strong style="color: var(--asu-maroon); font-family: 'Outfit', sans-serif;">Medical Grade Handling?</strong>
+                    <p style="font-size: 0.85rem; margin: 0.2rem 0 0; opacity: 0.8;">HIPAA/Bloodborne certification required (+15% surcharge)</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="button" style="width: 100%; padding: 1.5rem; font-size: 1.1rem; font-weight: 800;" onclick="calculateQuote()">Generate Pricing Telemetry</button>
+
+        <div id="result" class="result-box">
+            <p style="text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; color: var(--asu-maroon); margin: 0;">Estimated Total</p>
+            <div class="price-display" id="price-output">$0.00</div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem; font-style: italic;">*Based on current zone rates. Subject to Aletheia verification.</p>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                <button id="book-btn" class="button" style="background: var(--asu-maroon); color: white; padding: 1rem 2rem;" onclick="bookLoad()">Book This Load</button>
+                <button class="button" style="background: transparent; border: 2px solid var(--asu-maroon); color: var(--asu-maroon); padding: 1rem 2rem;" onclick="window.print()">Download PDF</button>
+            </div>
+
+            <div id="booking-success" style="display:none; color: #2e7d32; font-weight: 800; margin-top: 2rem; padding: 1rem; background: #e8f5e9; border-radius: 12px;">
+                <i class="fas fa-check-circle"></i> MISSION LOGGED TO SOVEREIGN LEDGER
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Valley Express Transport LLC – Arizona's Trusted Medical & Logistics Partner</p>
+    <p style="font-size: 0.9rem; opacity: 0.7;">HIPAA · Bloodborne Pathogen · TWIC · Hazmat Certified · Fully Insured</p>
+</footer>
+
+<script>
+    let selectedService = '';
+    let currentQuote = null;
+    const rates = {
+        'sedan': 45,
+        'sprinter': 85,
+        'box': 125
+    };
+
+    function selectService(type, el) {
+        selectedService = type;
+        document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    function calculateQuote() {
+        if (!selectedService) {
+            alert('Please select a vehicle type');
+            return;
+        }
+
+        const pickup = document.getElementById('pickup').value;
+        const dropoff = document.getElementById('dropoff').value;
+        const isMedical = document.getElementById('is-medical').checked;
+
+        if (!pickup || !dropoff) {
+            alert('Please enter both pickup and dropoff locations');
+            return;
+        }
+
+        let base = rates[selectedService];
+        let multiplier = 1.0;
+        
+        // Simple logic: distance-based or destination-based
+        const d = dropoff.toLowerCase();
+        if (d.includes('tucson')) multiplier = 1.8;
+        else if (d.includes('flagstaff')) multiplier = 2.2;
+        else if (d.includes('sedona')) multiplier = 2.5;
+        else multiplier = 1.2; // Base valley rate
+        
+        let total = base * multiplier;
+        if (isMedical) total *= 1.15;
+
+        currentQuote = {
+            id: 'VAL-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+            pickup,
+            dropoff,
+            service: selectedService,
+            isMedical,
+            total: total.toFixed(2),
+            timestamp: new Date().toISOString()
+        };
+
+        document.getElementById('price-output').innerText = '$' + total.toFixed(2);
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('booking-success').style.display = 'none';
+        document.getElementById('book-btn').style.display = 'inline-block';
+        
+        if (window.confetti) {
+            confetti({
+                particleCount: 150,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#8C1D40', '#FFC627', '#ffffff']
+            });
+        }
+        
+        // Scroll to result
+        document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function bookLoad() {
+        if (!currentQuote) return;
+
+        // Telemetry: Log to Local Ledger (Simulating Firebase)
+        let ledger = JSON.parse(localStorage.getItem('VALLEY_EXPRESS_LEDGER') || '[]');
+        ledger.push(currentQuote);
+        localStorage.setItem('VALLEY_EXPRESS_LEDGER', JSON.stringify(ledger));
+
+        console.log('TELEMETRY: Mission Pushed to Ledger', currentQuote);
+
+        // UI Feedback
+        document.getElementById('book-btn').style.display = 'none';
+        document.getElementById('booking-success').style.display = 'block';
+    }
+
+    // Mobile Menu Toggle Logic
+    document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+        document.querySelector('.nav-links')?.classList.toggle('show');
+    });
+
+    // Initialize from URL parameters
+    function initAutocomplete() {
+        if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+            new google.maps.places.Autocomplete(document.getElementById('pickup'));
+            new google.maps.places.Autocomplete(document.getElementById('dropoff'));
+        }
+    }
+    window.onload = initAutocomplete;
+</script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+</body>
+</html>

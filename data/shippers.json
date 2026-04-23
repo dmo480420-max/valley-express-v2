@@ -1,0 +1,20 @@
+[
+  {
+    "id": "SHIP-001",
+    "company_name": "Banner Health",
+    "contact_name": "Sarah Miller",
+    "phone": "602-555-9000",
+    "industry": "Medical",
+    "location_zone": "Downtown Phoenix",
+    "contract_status": "Active"
+  },
+  {
+    "id": "SHIP-002",
+    "company_name": "Maricopa County Superior Court",
+    "contact_name": "Jim Thorne",
+    "phone": "602-555-1234",
+    "industry": "Legal",
+    "location_zone": "Downtown Phoenix",
+    "contract_status": "Active"
+  }
+]

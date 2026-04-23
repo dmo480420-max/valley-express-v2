@@ -1,0 +1,150 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "databaseId": {
+          "__rl": true,
+          "value": "THE_BRIDGE_DB_ID",
+          "mode": "id"
+        },
+        "filter": "{\"property\":\"Status\",\"status\":{\"equals\":\"Delivered\"}}"
+      },
+      "id": "1",
+      "name": "On Job Delivery",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "BIDS_BOARD_DB_ID",
+          "mode": "id"
+        },
+        "filter": "{\"and\":[{\"property\":\"Gig Reference\",\"relation\":{\"contains\":\"{{$node['On Job Delivery'].json.id}}\"}},{\"property\":\"Status\",\"select\":{\"equals\":\"Accepted\"}}]}"
+      },
+      "id": "2",
+      "name": "Get Winning Bid",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Calculate Valley Express Payout Math\nconst customerPay = $node['On Job Delivery'].json.properties['Pay'].number;\nconst driverBid = $node['Get Winning Bid'].json.properties['Bid Amount'].number;\nconst netProfit = customerPay - driverBid;\n\nreturn {\n  json: {\n    customerPay,\n    driverBid,\n    netProfit,\n    driverId: $node['Get Winning Bid'].json.properties['Driver'].relation[0].id,\n    gigTitle: $node['On Job Delivery'].json.properties['Active Run'].title[0].plain_text\n  }\n};"
+      },
+      "id": "3",
+      "name": "Payout Calculator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "databaseId": {
+          "__rl": true,
+          "value": "VALLEY_ANALYTICS_DB_ID",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Metric Period",
+              "title": "={{new Date().toLocaleDateString()}} - {{$json.gigTitle}}"
+            },
+            {
+              "key": "Total Revenue",
+              "number": "={{$json.customerPay}}"
+            },
+            {
+              "key": "Driver Payouts",
+              "number": "={{$json.driverBid}}"
+            }
+          ]
+        }
+      },
+      "id": "4",
+      "name": "Log to Analytics",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        750,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "to": "+1PHOENIX_NUMBER",
+        "message": "={{'✅ JOB COMPLETE: ' + $json.gigTitle + ' | Payout: $' + $json.driverBid + ' | Logged to Weekly Earnings Portal.'}}",
+        "accountSid": "cd8fd02a9c736033a276e8ac136dba25",
+        "authToken": "LzpUhuH8SpDIk3WtalNm3vwNAIpOiIaN"
+      },
+      "id": "5",
+      "name": "Notify Driver",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        450
+      ]
+    }
+  ],
+  "connections": {
+    "On Job Delivery": {
+      "main": [
+        [
+          {
+            "node": "Get Winning Bid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Winning Bid": {
+      "main": [
+        [
+          {
+            "node": "Payout Calculator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Payout Calculator": {
+      "main": [
+        [
+          {
+            "node": "Log to Analytics",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Notify Driver",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

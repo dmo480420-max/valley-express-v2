@@ -1,0 +1,10 @@
+zone,vehicle,base_rate
+PHX,sedan,45
+PHX,sprinter,85
+PHX,box,125
+TUC,sedan,65
+TUC,sprinter,110
+TUC,box,160
+FLG,sedan,75
+FLG,sprinter,130
+FLG,box,190

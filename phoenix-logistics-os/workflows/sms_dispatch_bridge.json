@@ -1,0 +1,97 @@
+{
+  "name": "SMS Dispatch Bridge",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "databaseId": "[GIGS_DB_ID]",
+        "filter": {
+          "conditions": [
+            {
+              "property": "Status",
+              "select": {
+                "equals": "Unassigned"
+              }
+            },
+            {
+              "property": "AI Score",
+              "number": {
+                "greater_than_equal": 8.5
+              }
+            }
+          ]
+        }
+      },
+      "name": "Gig Watcher",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "databaseId": "[USERS_DB_ID]",
+        "filter": {
+          "conditions": [
+            {
+              "property": "Role",
+              "select": {
+                "equals": "Driver"
+              }
+            },
+            {
+              "property": "Status",
+              "select": {
+                "equals": "Verified"
+              }
+            }
+          ]
+        }
+      },
+      "name": "Get Verified Drivers",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "from": "+[TWILIO_NUMBER]",
+        "to": "={{ $json[\"properties\"][\"Phone\"][\"phone_number\"] }}",
+        "message": "=VALLEY EXPRESS BRIDGE ALERT: High-Value Gig Found! \n\nType: {{ $node[\"Gig Watcher\"].json[\"properties\"][\"Gig Type\"][\"select\"][\"name\"] }}\nPay: ${{ $node[\"Gig Watcher\"].json[\"properties\"][\"Est Pay\"][\"number\"] }}\nRoute: {{ $node[\"Gig Watcher\"].json[\"properties\"][\"Pickup City\"][\"rich_text\"][0][\"plain_text\"] }} -> {{ $node[\"Gig Watcher\"].json[\"properties\"][\"Dropoff City\"][\"rich_text\"][0][\"plain_text\"] }}\n\nBID NOW: https://valleyexpresstransport.com/available"
+      },
+      "name": "Twilio SMS Blast",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [650, 300]
+    }
+  ],
+  "connections": {
+    "Gig Watcher": {
+      "main": [
+        [
+          {
+            "node": "Get Verified Drivers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Verified Drivers": {
+      "main": [
+        [
+          {
+            "node": "Twilio SMS Blast",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

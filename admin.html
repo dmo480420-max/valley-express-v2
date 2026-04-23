@@ -1,0 +1,179 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valley Express | Command Deck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --asu-maroon: #8C1D40;
+            --asu-gold: #FFC627;
+            --dark-bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --neon-green: #00FF9C;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', sans-serif; background: var(--dark-bg); color: white; min-height: 100vh; overflow-x: hidden; }
+
+        header {
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .logo { font-weight: 700; letter-spacing: 4px; color: var(--asu-gold); font-size: 1.2rem; }
+        .logo span { font-weight: 300; color: white; opacity: 0.5; }
+
+        .nav-pills { display: flex; gap: 30px; }
+        .nav-btn {
+            background: none; border: none; color: white; opacity: 0.4; cursor: pointer;
+            font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+            transition: all 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent;
+        }
+        .nav-btn.active { opacity: 1; border-color: var(--asu-gold); color: var(--asu-gold); }
+
+        main { padding: 4rem; max-width: 1600px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 30px; }
+
+        /* LEAD CARDS */
+        .card {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 32px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .card:hover { 
+            transform: translateY(-10px); 
+            border-color: rgba(255, 198, 39, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .badge {
+            position: absolute; top: 2rem; right: 2rem;
+            padding: 6px 12px; border-radius: 8px; font-size: 0.6rem; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase; background: var(--asu-maroon); color: var(--asu-gold);
+        }
+
+        .card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; font-weight: 700; }
+        .card .subtitle { color: var(--asu-gold); font-size: 0.85rem; margin-bottom: 1.5rem; font-weight: 500; }
+
+        .meta-list { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; opacity: 0.6; line-height: 1.8; margin-bottom: 2rem; }
+        .meta-list span { color: var(--neon-green); }
+
+        .dispatch-input {
+            width: 100%; padding: 15px; border-radius: 12px; background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1); color: white; font-family: 'JetBrains Mono';
+            margin-bottom: 10px; font-size: 0.9rem;
+        }
+
+        .btn-action {
+            width: 100%; padding: 15px; border-radius: 12px; background: var(--asu-gold);
+            color: black; border: none; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .btn-action:hover { box-shadow: 0 10px 20px rgba(255, 198, 39, 0.2); transform: scale(1.02); }
+
+        #status-bar { position: fixed; bottom: 20px; right: 20px; z-index: 2000; }
+        .toast { background: var(--asu-gold); color: black; padding: 15px 30px; border-radius: 100px; font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">VALLEY<span>EXPRESS</span> | COMMAND</div>
+        <div class="nav-pills">
+            <button class="nav-btn active" onclick="loadView('Marketing Targets')">Intelligence</button>
+            <button class="nav-btn" onclick="loadView('Jobs')">Live Missions</button>
+        </div>
+        <div style="color: var(--neon-green); font-size: 0.7rem; font-family: 'JetBrains Mono'; letter-spacing: 1px;">● SYSTEM ONLINE</div>
+    </header>
+
+    <main>
+        <div id="deck-grid" class="grid">
+            <!-- CARDS INJECTED HERE -->
+        </div>
+    </main>
+
+    <div id="status-bar"><div class="toast" id="toast"></div></div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbwRfUd8NPj7UDODRCuXqQkKeIHtWjM_LUNKkX9XgAbO2uIBiHyvfWkdj4pGRnsCbUWcSg/exec";
+        let currentView = "Marketing Targets";
+
+        async function loadView(viewName) {
+            currentView = viewName;
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.innerText.toLowerCase().includes(viewName === 'Jobs' ? 'mission' : 'intel')));
+            
+            const grid = document.getElementById('deck-grid');
+            grid.innerHTML = '<p style="opacity: 0.5;">Accessing Sovereign Ledger...</p>';
+
+            try {
+                const r = await fetch(`${API_URL}?action=getSheetData&sheetName=${viewName}`);
+                const data = await r.json();
+                renderCards(data);
+            } catch(e) { grid.innerHTML = '<p style="color: red;">Ledger Link Terminated. Check API Deployment.</p>'; }
+        }
+
+        function renderCards(items) {
+            const grid = document.getElementById('deck-grid');
+            grid.innerHTML = '';
+
+            items.reverse().forEach((item, index) => {
+                const title = item.Company || item["Business Name"] || "Untested Node";
+                const sub = item["Job Description"] || item["Job Title"] || "Lead Identified";
+                const isDispatched = item.Status && item.Status.includes("DISPATCHED");
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="badge">${item["AI Scrutiny"] || item["Load Type"] || "PENDING"}</div>
+                    <h3>${title}</h3>
+                    <div class="subtitle">${sub}</div>
+                    <div class="meta-list">
+                        CONTACT: <span>${item.Email || item["Contact / Link"] || "N/A"}</span><br>
+                        STATUS: <span>${item.Status || "READY"}</span>
+                    </div>
+                    <input type="text" class="dispatch-input" id="call-${index}" placeholder="FIELD CALLSIGN" value="${isDispatched ? item.Status.split('TO ')[1] : ''}">
+                    <button class="btn-action" onclick="dispatch('${index + 2}', 'call-${index}')">
+                        ${isDispatched ? 'RE-ASSIGN MISSION' : 'DEPLOY MISSION'}
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        async function dispatch(rowId, inputId) {
+            const callsign = document.getElementById(inputId).value.toUpperCase();
+            if(!callsign) return alert("PILOT CALLSIGN REQUIRED");
+
+            const toast = document.getElementById('toast');
+            toast.innerText = `DEPLOYING MISSION TO ${callsign}...`;
+            toast.style.display = 'block';
+
+            await fetch(API_URL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    action: 'updateCell',
+                    sheetName: currentView,
+                    rowId: parseInt(rowId),
+                    columnName: 'Status',
+                    value: `DISPATCHED TO ${callsign}`
+                })
+            });
+
+            toast.innerText = "MISSION ACTIVATED";
+            setTimeout(() => { toast.style.display = 'none'; loadView(currentView); }, 2000);
+        }
+
+        window.onload = () => loadView('Marketing Targets');
+    </script>
+</body>
+>
+</html>

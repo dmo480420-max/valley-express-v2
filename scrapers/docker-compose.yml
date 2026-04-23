@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  scraper-hub:
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/app/data
+      - ./.env.local:/app/.env.local
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: always
+    command: >
+      sh -c "echo '0 */6 * * * python city_contracts_scraper.py && python private_procurement_scraper.py && python spot_pay_scraper.py' > /etc/crontabs/root && crond -f"
+
+  ingestion-bridge:
+    build:
+      context: ../
+      dockerfile: scrapers/node/Dockerfile
+    volumes:
+      - ./data:/app/scrapers/data
+      - ../.env.local:/app/.env.local
+    restart: always
+    command: node scrapers/MASTER_LEDGER_INGEST.js

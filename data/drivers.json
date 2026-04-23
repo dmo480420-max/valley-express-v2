@@ -1,0 +1,32 @@
+[
+  {
+    "id": "DRV-SUN-08",
+    "name": "Alex Rivera",
+    "phone": "602-555-0101",
+    "vehicle_type": "Sprinter Van",
+    "current_zone": "Downtown Phoenix",
+    "status": "online",
+    "rating": 4.99,
+    "active_load": 9
+  },
+  {
+    "id": "DRV-SUN-09",
+    "name": "Jordan Smith",
+    "phone": "480-555-0202",
+    "vehicle_type": "Box Truck",
+    "current_zone": "Tempe",
+    "status": "online",
+    "rating": 4.85,
+    "active_load": 0
+  },
+  {
+    "id": "DRV-SUN-10",
+    "name": "Maria Garcia",
+    "phone": "623-555-0303",
+    "vehicle_type": "Cargo Van",
+    "current_zone": "Glendale",
+    "status": "online",
+    "rating": 4.92,
+    "active_load": 4
+  }
+]

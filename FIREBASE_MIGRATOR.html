@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Valley Express - Firebase Migrator</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #121212; color: white; padding: 40px; text-align: center; }
+        .card { background: #1e1e1e; padding: 30px; border-top: 5px solid #FFC627; border-radius: 8px; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        h2 { margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        p { margin-bottom: 30px; }
+        input[type="file"] { background: #2a2a2a; padding: 10px; border-radius: 4px; border: 1px dashed #FFC627; cursor: pointer; display: block; width: 100%; box-sizing: border-box; }
+        button { background: #8C1D40; color: white; padding: 15px 20px; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 20px; width: 100%; transition: all 0.3s ease; text-transform: uppercase; }
+        button:hover { background: #a5224a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(140, 29, 64, 0.4); }
+        button:active { transform: translateY(0); }
+        #log { margin-top: 30px; font-family: 'Consolas', monospace; font-size: 13px; color: #4CAF50; text-align: left; white-space: pre-wrap; background: #000; padding: 15px; border-radius: 4px; max-height: 300px; overflow-y: auto; border: 1px solid #333; }
+        .success-accent { color: #FFC627; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <img src="public/valley_express_logo.png" alt="Logo" style="height: 100px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(255,198,39,0.3));">
+    <h2 style="color: #FFC627;">🚛 Valley Express Migrator</h2>
+    <p style="color: #ccc;">Select your Master Ledger CSV files to synchronize with the Sovereignty Cloud.</p>
+    
+    <input type="file" id="csvFiles" multiple accept=".csv" style="margin-bottom: 20px;">
+    <button onclick="startMigration()">EXECUTE CLOUD SYNC</button>
+    <button onclick="executePulseTest()" style="background: transparent; border: 1px solid #FFC627; color: #FFC627; margin-top: 10px;">TRIGGER PULSE TEST</button>
+    
+    <div id="log"></div>
+</div>
+
+<script>
+    // 🔱 LIVE FIREBASE CONFIGURATION (INJECTED)
+    const firebaseConfig = {
+        apiKey: "AIzaSyDVzuXl5kVPbh0ErE0nOk3eJ7cOYVPjCGo",
+        authDomain: "valley-express-os.firebaseapp.com",
+        projectId: "valley-express-os",
+        storageBucket: "valley-express-os.firebasestorage.app",
+        messagingSenderId: "423108874305",
+        appId: "1:423108874305:web:6ae0509fff3533d57676c0"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    function logMessage(msg) {
+        const log = document.getElementById('log');
+        log.innerText += msg + "\n";
+        log.scrollTop = log.scrollHeight;
+    }
+
+    async function executePulseTest() {
+        logMessage("\n🔱 [PULSE] Initiating Intelligence Diagnostic...");
+        const pulseLead = {
+            title: "PULSE TEST | Phoenix Medical Hub",
+            timestamp: new Date().toISOString(),
+            sector: "MEDICAL",
+            truth_score: 99,
+            link: "https://valleyexpress.os/pulse-test",
+            _ingested_at: new Date().toISOString(),
+            _source: "Pulse Diagnostic"
+        };
+
+        try {
+            await db.collection("leads_verified").add(pulseLead);
+            logMessage("✅ [PULSE] Telemetry Radiated. Check Strike Console.");
+        } catch (e) {
+            logMessage("❌ [ERROR] Pulse reflected: " + e.message);
+        }
+    }
+
+    async function startMigration() {
+        const files = document.getElementById('csvFiles').files;
+        if (files.length === 0) {
+            alert("No data targets identified. Please select CSV files.");
+            return;
+        }
+
+        logMessage("🚀 [INITIATING] Enterprise Migration Strike...");
+
+        for (let file of files) {
+            // Collection name logic
+            let collectionName = file.name.replace('.csv', '').replace('Valley Express Dispatch - ', '').trim();
+            collectionName = collectionName.toLowerCase().replace(/\s+/g, '_'); 
+            
+            logMessage(`\n📂 [TARGET]: ${collectionName}...`);
+
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: async function(results) {
+                    let data = results.data;
+                    logMessage(`   ➔ Payload depth: ${data.length} records detected.`);
+                    
+                    let batch = db.batch();
+                    let count = 0;
+                    let totalPushed = 0;
+                    
+                    for (let row of data) {
+                        // Add metadata for intelligence tracking
+                        row._ingested_at = new Date().toISOString();
+                        row._source = file.name;
+
+                        let docRef = db.collection(collectionName).doc(); 
+                        batch.set(docRef, row);
+                        count++;
+                        totalPushed++;
+                        
+                        if (count === 450) { 
+                            logMessage(`   🔥 Syncing cluster (${totalPushed}/${data.length})...`);
+                            await batch.commit();
+                            batch = db.batch();
+                            count = 0;
+                        }
+                    }
+                    if (count > 0) {
+                        await batch.commit();
+                    }
+                    logMessage(`   ✅ [SUCCESS]: ${collectionName} fully synchronized.`);
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

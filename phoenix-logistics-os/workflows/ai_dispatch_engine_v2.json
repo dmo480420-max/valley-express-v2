@@ -1,0 +1,91 @@
+{
+  "name": "AI Dispatch Engine (70/30)",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "databaseId": "[GIGS_DB_ID]",
+        "filter": {
+          "conditions": [
+            { "property": "Status", "select": { "equals": "Scraped" } }
+          ]
+        }
+      },
+      "name": "Incoming Gig Trigger",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const pay = items[0].json.properties['Est Pay'].number;\nitems[0].json.driver_pay = pay * 0.8;\nitems[0].json.company_revenue = pay * 0.2;\nreturn items;"
+      },
+      "name": "80/20 Split Logic",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {
+        "resource": "databaseItem",
+        "operation": "update",
+        "databaseId": "[GIGS_DB_ID]",
+        "itemId": "={{ $node[\"Incoming Gig Trigger\"].json[\"id\"] }}",
+        "propertiesUi": {
+          "propertyValues": [
+            { "property": "Status", "select": { "name": "AI Evaluated" } },
+            { "property": "Driver Profit", "number": "={{ $json[\"driver_pay\"] }}" },
+            { "property": "Company Profit", "number": "={{ $json[\"company_revenue\"] }}" }
+          ]
+        }
+      },
+      "name": "Update Gig with Split",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "databaseId": "[USERS_DB_ID]",
+        "filter": {
+          "conditions": [
+            { "property": "Role", "select": { "equals": "Driver" } },
+            { "property": "Status", "select": { "equals": "Verified" } },
+            { "property": "On-Duty", "checkbox": { "equals": true } }
+          ]
+        }
+      },
+      "name": "Get Nearby Drivers",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "operation": "matrix",
+        "origins": "={{ $node[\"Incoming Gig Trigger\"].json.properties.Address.rich_text[0].plain_text }}",
+        "destinations": "={{ $json.properties.Current_Location.rich_text[0].plain_text }}",
+        "options": {
+          "departureTime": "now",
+          "trafficModel": "best_guess"
+        }
+      },
+      "name": "Traffic-Aware Distance Matrix",
+      "type": "n8n-nodes-base.googleMaps",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Incoming Gig Trigger": { "main": [[{ "node": "70/30 Split Logic", "type": "main", "index": 0 }]] },
+    "70/30 Split Logic": { "main": [[{ "node": "Update Gig with Split", "type": "main", "index": 0 }]] },
+    "Update Gig with Split": { "main": [[{ "node": "Get Nearby Drivers", "type": "main", "index": 0 }]] },
+    "Get Nearby Drivers": { "main": [[{ "node": "Traffic-Aware Distance Matrix", "type": "main", "index": 0 }]] }
+  }
+}

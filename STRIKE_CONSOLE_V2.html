@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valley Express | STRIKE CONSOLE V2.0</title>
+  <link rel="stylesheet" href="strike-console.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Fira+Code&display=swap" rel="stylesheet">
+  <!-- Firebase SDK (Modular) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+    import { getFirestore, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+    // LIVE HANDSHAKE: Valley Express OS v2.0
+    const config = {
+      apiKey: "AIzaSyDVzuXl5kVPbh0ErE0nOk3eJ7cOYVPjCGo",
+      authDomain: "valley-express-os.firebaseapp.com",
+      projectId: "valley-express-os",
+      storageBucket: "valley-express-os.firebasestorage.app",
+      messagingSenderId: "423108874305",
+      appId: "1:423108874305:web:6ae0509fff3533d57676c0",
+      measurementId: "G-607BVHELN5"
+    };
+    const app = initializeApp(config);
+    const db = getFirestore(app);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      refreshLeadsV2();
+    });
+
+    window.refreshLeadsV2 = () => {
+      console.log("[FIREBASE] Listening for real-time lead telemetry...");
+      const output = document.getElementById('console-output');
+      output.innerHTML += '<br>> [FIREBASE] REAL-TIME FEED ACTIVE.';
+      
+      const leadBody = document.getElementById('lead-body');
+      
+      // Real-time listener for the main lead collection
+      // Note: "leads_verified" is our primary strike collection
+      onSnapshot(collection(db, "leads_verified"), (snapshot) => {
+        leadBody.innerHTML = ""; // Reset for fresh stream
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(data.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+            <td><span style="color: ${data.sector === 'B2G' ? '#00FF00' : 'var(--gold)'}">${data.sector}</span></td>
+            <td>${data.title}</td>
+            <td><span class="truth-pill">ALETHEIA: ${data.truth_score}%</span></td>
+            <td><button class="strike-btn">EXECUTE</button></td>
+          `;
+          leadBody.appendChild(tr);
+        });
+        document.getElementById('count-leads').innerText = snapshot.size;
+        console.log(`[FIREBASE] ${snapshot.size} leads synchronized.`);
+      });
+    }
+  </script>
+</head>
+<body>
+  <div class="scanline"></div>
+  
+  <div class="strike-container">
+    <header>
+      <div class="logo-area" style="display: flex; align-items: center;">
+        <img src="public/valley_express_logo.png" class="header-logo" alt="Logo">
+        <div>
+          <h1>Valley Express</h1>
+          <span>Strike Console 2.0 | Firebase Armed</span>
+        </div>
+      </div>
+      <div class="pulse-indicator">
+        <div class="dot" style="background: #00FF00; box-shadow: 0 0 10px #00FF00;"></div>
+        FIREBASE SYNC ACTIVE
+      </div>
+    </header>
+
+    <div class="status-grid">
+      <div class="status-card active">
+        <h3>Live Leads (PHX)</h3>
+        <div class="value" id="count-leads">412</div>
+      </div>
+      <div class="status-card active">
+        <h3>Strike Success</h3>
+        <div class="value">98.4%</div>
+      </div>
+      <div class="status-card">
+        <h3>Aletheia Confidence</h3>
+        <div class="value">A+</div>
+      </div>
+      <div class="status-card active">
+        <h3>B2G Pipeline</h3>
+        <div class="value">$1.2M</div>
+      </div>
+    </div>
+
+    <main class="main-monitor">
+      <section class="lead-monitor">
+        <div class="monitor-header">
+          <h2>Neural Lead Stream</h2>
+          <div style="display: flex; gap: 1rem;">
+            <select class="strike-btn" style="background: var(--glass);">
+              <option>All Sectors</option>
+              <option>Medical</option>
+              <option>B2G</option>
+              <option>Industrial</option>
+            </select>
+            <button class="strike-btn" onclick="refreshLeadsV2()">Refresh Link</button>
+          </div>
+        </div>
+        
+        <table class="lead-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Sector</th>
+              <th>Lead Intent</th>
+              <th>Audit Insight</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="lead-body">
+            <tr>
+              <td>12:05 PM</td>
+              <td><span style="color: var(--gold)">MEDICAL</span></td>
+              <td>Stat Specimen Run | Banner Health</td>
+              <td><span class="truth-pill">GEMINI: 99% TRUE</span></td>
+              <td><button class="strike-btn">B2B OUTREACH</button></td>
+            </tr>
+            <tr>
+              <td>11:45 AM</td>
+              <td><span style="color: #00FF00">B2G</span></td>
+              <td>PHX T3 Apron Delivery Support</td>
+              <td><span class="truth-pill">GEMINI: 94% TRUE</span></td>
+              <td><button class="strike-btn">GENERATE BID</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="action-center">
+        <h2>Command Center</h2>
+        
+        <div class="terminal" id="console-output">
+          > INITIALIZING FIREBASE HANDSHAKE...<br>
+          > ASCERTAINING PHOENIX CORRIDOR TELEMETRY...<br>
+          > ALETHEIA 2.0 (GEMINI-1.5-PRO) ONLINE.<br>
+          > SYSTEM STATUS: NOMINAL.
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <h3 style="font-size: 0.8rem; color: var(--gold);">ASU SUN DEVIL COMPLIANCE</h3>
+          <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px; font-size: 0.8rem;">
+            <p>Brand Mode: Aggressive / Professional</p>
+            <p>Aletheia Target Score: > 80</p>
+          </div>
+          <button class="strike-btn" style="width: 100%; padding: 1.25rem; font-size: 1.1rem; margin-top: 1rem;">EXECUTE TACTICAL STRIKE</button>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

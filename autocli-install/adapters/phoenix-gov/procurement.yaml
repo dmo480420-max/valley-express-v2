@@ -1,0 +1,32 @@
+site: phoenix-gov
+name: search
+description: Search Phoenix City Procurement for Logistics and Medical Courier RFPs.
+domain: phoenix.gov
+strategy: public
+browser: true
+
+args:
+  query:
+    type: string
+    default: "courier"
+
+pipeline:
+  - navigate: https://solicitation.phoenix.gov/Solicitations?SearchText=${{ args.query }}
+  - wait: section.MainContent
+  - evaluate: |
+      (async () => {
+        const rows = Array.from(document.querySelectorAll('table tr')).slice(1);
+        return rows.map(row => {
+          const cells = row.querySelectorAll('td');
+          if (cells.length < 3) return null;
+          return {
+            id: cells[0]?.innerText.trim(),
+            title: cells[1]?.innerText.trim(),
+            due_date: cells[2]?.innerText.trim(),
+            type: cells[3]?.innerText.trim(),
+            url: cells[1].querySelector('a')?.href
+          };
+        }).filter(x => x && (x.title.toLowerCase().includes('transport') || x.title.toLowerCase().includes('medical') || x.title.toLowerCase().includes('courier')));
+      })()
+
+columns: [id, title, due_date, type, url]

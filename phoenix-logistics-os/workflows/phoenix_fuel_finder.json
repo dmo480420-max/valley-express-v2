@@ -1,0 +1,51 @@
+{
+  "name": "Phoenix Fuel Finder Engine",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyHour"
+            }
+          ]
+        }
+      },
+      "name": "Hourly Scan",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Realistic random price swings for Phoenix market\nconst basePrice = 3.45;\nconst swing = (Math.random() * 0.2) - 0.1;\nconst stations = [\n  { name: 'QuickTrip #302 (Scottsdale)', price: (basePrice + swing + 0.05).toFixed(2), distance: '1.2mi' },\n  { name: 'Chevron Valley (Tempe)', price: (basePrice + swing - 0.02).toFixed(2), distance: '4.5mi' },\n  { name: 'Circle K Desert Hub', price: (basePrice + swing).toFixed(2), distance: '2.1mi' }\n];\nreturn stations.map(s => ({ json: s }));"
+      },
+      "name": "Simulated Fuel Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {
+        "resource": "databaseItem",
+        "databaseId": "[FUEL_DB_ID]",
+        "propertiesUi": {
+          "propertyValues": [
+            { "property": "Station Name", "title": "={{ $json[\"name\"] }}" },
+            { "property": "Price", "number": "={{ parseFloat($json[\"price\"]) }}" },
+            { "property": "Distance", "rich_text": { "text": "={{ $json[\"distance\"] }}" } },
+            { "property": "Last Updated", "date": { "date": "={{ $now }}" } }
+          ]
+        }
+      },
+      "name": "Sync to Notion Fuel Table",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [500, 300]
+    }
+  ],
+  "connections": {
+    "Hourly Scan": { "main": [[{ "node": "Simulated Fuel Data", "type": "main", "index": 0 }]] },
+    "Simulated Fuel Data": { "main": [[{ "node": "Sync to Notion Fuel Table", "type": "main", "index": 0 }]] }
+  }
+}

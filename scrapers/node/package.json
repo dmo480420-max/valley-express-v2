@@ -1,0 +1,16 @@
+{
+  "name": "valley-express-scrapers-node",
+  "version": "1.0.0",
+  "description": "Node-based scrapers for Valley Express Logistics",
+  "main": "index.js",
+  "dependencies": {
+    "crawlee": "^3.0.0",
+    "playwright": "^1.40.0",
+    "dotenv": "^16.0.0",
+    "fse": "^4.0.0"
+  },
+  "scripts": {
+    "crawlee": "npx tsx crawlee_worker.ts",
+    "playwright": "npx tsx playwright_worker.ts"
+  }
+}

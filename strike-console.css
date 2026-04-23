@@ -1,0 +1,238 @@
+:root {
+  --maroon: #8C1D40;
+  --gold: #FFC627;
+  --bg-cream: #FEF9E8;
+  --surface: #FFF5E6;
+  --gold-glow: rgba(255, 198, 39, 0.4);
+  --maroon-dark: #5E132B;
+  --glass: rgba(140, 29, 64, 0.05);
+  --glass-border: rgba(140, 29, 64, 0.1);
+  --text-main: #2C241A;
+  --text-dim: #5E5A55;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-cream);
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(140, 29, 64, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(255, 198, 39, 0.05) 0%, transparent 40%);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: 1000px;
+  background-image: url('public/valley_express_logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.strike-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 1rem;
+}
+
+.header-logo {
+  height: 60px;
+  margin-right: 20px;
+  filter: drop-shadow(0 0 10px rgba(255,198,39,0.3));
+}
+
+.logo-area h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin: 0;
+  background: linear-gradient(90deg, var(--maroon), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+.logo-area span {
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  font-weight: 300;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.status-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.status-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--maroon);
+}
+
+.status-card.active::before {
+  background: var(--gold);
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+.status-card h3 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0 0 0.5rem 0;
+}
+
+.status-card .value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.main-monitor {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.lead-monitor {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+  min-height: 600px;
+}
+
+.monitor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.monitor-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.lead-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lead-table th {
+  text-align: left;
+  padding: 1rem;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.lead-table td {
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid rgba(140, 29, 64, 0.05);
+}
+
+.truth-pill {
+  background: rgba(0, 255, 0, 0.1);
+  color: #00FF00;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.strike-btn {
+  background: var(--maroon);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.strike-btn:hover {
+  background: var(--gold);
+  color: var(--maroon);
+  box-shadow: 0 0 20px var(--gold-glow);
+  transform: translateY(-2px);
+}
+
+.action-center {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.scanline {
+  width: 100%;
+  height: 2px;
+  background: var(--gold);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  opacity: 0.1;
+  pointer-events: none;
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  from { top: 0; }
+  to { top: 100%; }
+}
+
+.terminal {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 1rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  color: var(--maroon);
+  margin-top: 2rem;
+  border: 1px solid var(--glass-border);
+}

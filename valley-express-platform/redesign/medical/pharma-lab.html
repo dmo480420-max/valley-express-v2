@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Pharmaceutical & Laboratory Logistics | Valley Express</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Outfit:wght@200;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../styles/theme.css">
+    <style>
+        .hero-sub {
+            background: linear-gradient(rgba(140, 29, 64, 0.8), rgba(44, 36, 26, 0.9)), 
+                        url('https://images.unsplash.com/photo-1579165466511-70371892d12a?auto=format&fit=crop&q=80&w=1600') center/cover;
+            color: white;
+            padding: 8rem 2rem;
+            text-align: center;
+            border-radius: 0 0 3rem 3rem;
+        }
+        .hero-sub h1 {
+            font-size: 3.5rem;
+            color: var(--asu-gold);
+            margin-bottom: 1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+        .hero-sub p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+        
+        .luxury-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            border: 2px solid var(--asu-gold);
+            transition: all 0.3s;
+        }
+        .luxury-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--asu-maroon);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-box {
+            background: var(--surface-offwhite);
+            border-radius: 2rem;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 5rem 0;
+            border: 1px solid rgba(140, 29, 64, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--asu-maroon); letter-spacing: -0.03em;">VALLEY <span style="color: var(--asu-gold);">EXPRESS</span></div>
+    <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+    <div class="nav-links">
+        <a href="../index.html" class="nav-link">HOME</a>
+        <a href="../medical.html" class="nav-link">MEDICAL</a>
+        <a href="../middle-mile.html" class="nav-link">MIDDLE MILE</a>
+        <a href="../final-mile.html" class="nav-link">FINAL MILE</a>
+        <a href="../logistics.html" class="nav-link">SOVEREIGN OS</a>
+        <a href="../drivers.html" class="nav-link">DRIVERS</a>
+        <a href="../contact.html" class="nav-link">CONTACT</a>
+        <a href="../login.html" class="nav-link">LOGIN</a>
+        <a href="../quote.html" class="btn-get-quote-nav" style="background-color: var(--asu-maroon); color: white; padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; font-weight: 700;">GET QUOTE</a>
+    </div>
+</nav>
+
+<div class="hero-sub">
+    <h1>Pharmaceutical & Lab Logistics</h1>
+    <p>Secure medication transport, hospital/lab route deliveries, and scheduled pharmaceutical logistics across Arizona.</p>
+    <a href="../quote.html?service=pharma-lab" class="btn-gold" style="background: var(--asu-gold); color: var(--asu-maroon); padding: 1.2rem 3rem; border-radius: 3rem; font-weight: 800; text-decoration: none;">Schedule Route Delivery →</a>
+</div>
+
+<div class="container">
+    <h2 style="color: var(--asu-maroon); font-family: 'Outfit', sans-serif; font-size: 2.5rem; margin-top: 4rem;">Reliable, Compliant, and Scheduled</h2>
+    <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 900px; margin-bottom: 3rem;">Pharmacies, hospitals, and diagnostic labs depend on consistent, secure logistics. Our Pharmaceutical & Laboratory Logistics service combines secure prescription transport with reliable daily or weekly route deliveries for healthcare facilities.</p>
+    
+    <div class="feature-grid">
+        <div class="luxury-card">
+            <div class="card-icon"><i class="fas fa-capsules"></i></div>
+            <h3 style="font-family: 'Outfit', sans-serif; color: var(--asu-maroon); margin-bottom: 1rem;">Pharmaceutical & Prescription Transport</h3>
+            <p>Secure delivery of medications, controlled substances, and temperature‑sensitive biologics to pharmacies, clinics, or direct to patients. We maintain rigorous security standards for all scheduled substances.</p>
+        </div>
+        <div class="luxury-card">
+            <div class="card-icon"><i class="fas fa-route"></i></div>
+            <h3 style="font-family: 'Outfit', sans-serif; color: var(--asu-maroon); margin-bottom: 1rem;">Hospital & Laboratory Route Deliveries</h3>
+            <p>Daily/weekly scheduled pickups and deliveries for hospitals, outpatient centers, and testing laboratories — with real‑time tracking and ETA updates via the Sovereign OS dashboard.</p>
+        </div>
+    </div>
+
+    <div class="cta-box">
+        <h2 style="color: var(--asu-maroon); font-family: 'Outfit', sans-serif; margin-bottom: 1.5rem;">Optimize Your Medical Supply Chain</h2>
+        <p style="max-width: 600px; margin: 0 auto 2.5rem; font-size: 1.2rem;">Let our experts design a custom route schedule that increases efficiency and reduces overhead for your facility.</p>
+        <a href="../contact.html" class="btn-gold" style="background: var(--asu-maroon); color: white; padding: 1rem 2.5rem; border-radius: 3rem; font-weight: 700; text-decoration: none;">Consult with our Logistics Team →</a>
+    </div>
+
+    <p style="text-align: center; font-weight: 600; color: var(--text-muted);">Ideal for: Retail pharmacies, hospital pharmacies, specialty pharmacies, and diagnostic laboratories.</p>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Valley Express Transport LLC – Arizona's Trusted Medical & Logistics Partner</p>
+    <p style="font-size: 0.9rem; opacity: 0.7;">HIPAA · Bloodborne Pathogen · TWIC · Hazmat Certified</p>
+</footer>
+
+    <script>
+        // Mobile Menu Toggle Logic
+        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+            document.querySelector('.nav-links')?.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

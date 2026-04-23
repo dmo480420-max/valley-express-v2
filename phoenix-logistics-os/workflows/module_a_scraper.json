@@ -1,0 +1,166 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "1",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.couriergigs.com/v1/jobs",
+        "options": {}
+      },
+      "id": "2",
+      "name": "CourierGigs API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        300,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gig-export-webhook",
+        "options": {}
+      },
+      "id": "3",
+      "name": "Scraper Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        300,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "action": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "ENTER_NOTION_DB_ID",
+          "mode": "id"
+        },
+        "returnAll": true
+      },
+      "id": "4",
+      "name": "Check Existing",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Simple Deduplication Logic\nconst existingTitles = $node[\"Check Existing\"].json.map(j => j.properties.Title.title[0].plain_text);\nreturn items.filter(item => !existingTitles.includes(item.json.title));"
+      },
+      "id": "5",
+      "name": "Deduplicate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        700,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "databaseId": {
+          "__rl": true,
+          "value": "ENTER_NOTION_DB_ID",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Job Title",
+              "title": "={{$json.title}}"
+            },
+            {
+              "key": "Pay",
+              "number": "={{$json.pay}}"
+            },
+            {
+              "key": "Medical Flag",
+              "checkbox": "={{$json.description.toLowerCase().includes('medical') || $json.description.toLowerCase().includes('specimen')}}"
+            }
+          ]
+        }
+      },
+      "id": "6",
+      "name": "Push to Notion",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check Existing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CourierGigs API": {
+      "main": [
+        [
+          {
+            "node": "Check Existing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scraper Webhook": {
+      "main": [
+        [
+          {
+            "node": "Check Existing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Existing": {
+      "main": [
+        [
+          {
+            "node": "Deduplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deduplicate": {
+      "main": [
+        [
+          {
+            "node": "Push to Notion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

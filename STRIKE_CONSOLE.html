@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valley Express | STRIKE CONSOLE v1.0</title>
+  <link rel="stylesheet" href="strike-console.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&family=Fira+Code&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="scanline"></div>
+  
+  <div class="strike-container">
+    <header>
+      <div class="logo-area">
+        <h1>Valley Express</h1>
+        <span>Strike Console Alpha</span>
+      </div>
+      <div class="pulse-indicator">
+        <div class="dot"></div>
+        NEURAL LINK ACTIVE
+      </div>
+    </header>
+
+    <div class="status-grid">
+      <div class="status-card active">
+        <h3>Verified Leads</h3>
+        <div class="value" id="count-leads">128</div>
+      </div>
+      <div class="status-card">
+        <h3>Active Bids</h3>
+        <div class="value" id="count-bids">14</div>
+      </div>
+      <div class="status-card active">
+        <h3>Truth Factor</h3>
+        <div class="value">94.2%</div>
+      </div>
+      <div class="status-card">
+        <h3>Hub Latency</h3>
+        <div class="value">12ms</div>
+      </div>
+    </div>
+
+    <main class="main-monitor">
+      <section class="lead-monitor">
+        <div class="monitor-header">
+          <h2>Tactical Lead Feed</h2>
+          <button class="strike-btn" onclick="refreshLeads()">Pulse Scan</button>
+        </div>
+        
+        <table class="lead-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Lead Source</th>
+              <th>Target Sector</th>
+              <th>Truth Score</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="lead-body">
+            <!-- Pushed from Aletheia Auditor -->
+            <tr>
+              <td>10:24 AM</td>
+              <td>State of AZ RSS</td>
+              <td>B2G | Medical Hauling</td>
+              <td><span class="truth-pill">98% TRUE</span></td>
+              <td><button class="strike-btn">INITIATE STRIKE</button></td>
+            </tr>
+            <tr>
+              <td>09:15 AM</td>
+              <td>Craigslist Stealth</td>
+              <td>Final Mile | Furniture</td>
+              <td><span class="truth-pill" style="color: #FFC627; border-color: #FFC627;">82% VERIFIED</span></td>
+              <td><button class="strike-btn">INITIATE STRIKE</button></td>
+            </tr>
+            <tr>
+              <td>08:45 AM</td>
+              <td>TaskRabbit Sniper</td>
+              <td>Fee-for-Service | Courier</td>
+              <td><span class="truth-pill">91% TRUE</span></td>
+              <td><button class="strike-btn">INITIATE STRIKE</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="action-center">
+        <h2>Strike Commander</h2>
+        <p style="color: var(--text-dim); font-size: 0.9rem;">Select a verified target to generate bidding documentation via Stirling PDF logic.</p>
+        
+        <div class="terminal" id="console-output">
+          > INITIALIZING STRIKE CONSOLE...<br>
+          > SYNCING WITH MASTER LEDGER...<br>
+          > ALETHEIA PROTOCOL LOADED.<br>
+          > READY FOR TARGET SELECTION.
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <button class="strike-btn" style="width: 100%; padding: 1rem; font-size: 1.1rem;" onclick="logStrike()">GENERATE MASTER MANIFEST</button>
+          <button class="strike-btn" style="width: 100%; padding: 1rem; margin-top: 1rem; background: transparent; border: 1px solid var(--maroon);" onclick="syncAppFlowy()">SYNC TO APPFLOWY</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function logStrike() {
+      const output = document.getElementById('console-output');
+      output.innerHTML += '<br>> [STRIKE] GENERATING BRANDED PDF BUNDLE...';
+      output.innerHTML += '<br>> [STRIKE] APPLYING ASU SUN DEVIL COMPLIANCE LAYER...';
+      output.innerHTML += '<br>> [SUCCESS] MANIFEST READY IN /EXPORT DIRECTORY.';
+    }
+
+    function syncAppFlowy() {
+       const output = document.getElementById('console-output');
+       output.innerHTML += '<br>> [SYNC] PUSHING HIGH-VALUE LEADS TO SOVEREIGN HUB...';
+       output.innerHTML += '<br>> [SUCCESS] SYNC COMPLETE.';
+    }
+
+    function refreshLeads() {
+      console.log("Refreshing from GAS Backend...");
+      // Implementation for google.script.run when deployed
+    }
+  </script>
+
+  <style>
+    .pulse-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--gold);
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+  </style>
+</body>
+</html>

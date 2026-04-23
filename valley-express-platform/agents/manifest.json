@@ -1,0 +1,54 @@
+{
+    "fleet_version": "1.0.0",
+    "codename": "TRIPLE_SUN_DEVIL",
+    "agents": {
+        "EMP_0001": {
+            "name": "APEX_SCOUT",
+            "role": "Freight Hunter",
+            "script": "agents/bin/apex_scout.py",
+            "log": "agents/logs/scout.log",
+            "config": "agents/config/scout.yaml",
+            "status": "INACTIVE"
+        },
+        "EMP_0002": {
+            "name": "NEURAL_DISPATCH",
+            "role": "Smart Sync Dispatcher",
+            "script": "agents/bin/neural_dispatch.py",
+            "log": "agents/logs/dispatch.log",
+            "config": "agents/config/dispatch.yaml",
+            "status": "INACTIVE"
+        },
+        "EMP_0003": {
+            "name": "STRIKE_OUTREACH",
+            "role": "CRM & Outreach Manager",
+            "script": "agents/bin/strike_outreach.py",
+            "log": "agents/logs/outreach.log",
+            "config": "agents/config/outreach.yaml",
+            "status": "INACTIVE"
+        },
+        "EMP_0004": {
+            "name": "SENTINEL_SHIELD",
+            "role": "Fleet & Compliance Sentinel",
+            "script": "agents/bin/sentinel_shield.py",
+            "log": "agents/logs/compliance.log",
+            "config": "agents/config/compliance.yaml",
+            "status": "INACTIVE"
+        },
+        "EMP_0005": {
+            "name": "LEDGER_CONTROL",
+            "role": "Financial Controller",
+            "script": "agents/bin/ledger_control.py",
+            "log": "agents/logs/finance.log",
+            "config": "agents/config/finance.yaml",
+            "status": "INACTIVE"
+        },
+        "EMP_0006": {
+            "name": "AUTHORITY_COMMAND",
+            "role": "Authority Builder",
+            "script": "agents/bin/authority_command.py",
+            "log": "agents/logs/content.log",
+            "config": "agents/config/content.yaml",
+            "status": "INACTIVE"
+        }
+    }
+}

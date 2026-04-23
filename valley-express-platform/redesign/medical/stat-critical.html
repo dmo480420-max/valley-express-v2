@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>STAT & Critical Care Logistics | Valley Express</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Outfit:wght@200;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../styles/theme.css">
+    <style>
+        .hero-sub {
+            background: linear-gradient(rgba(140, 29, 64, 0.8), rgba(44, 36, 26, 0.9)), 
+                        url('https://images.unsplash.com/photo-1587350859743-4a004838f5f4?auto=format&fit=crop&q=80&w=1600') center/cover;
+            color: white;
+            padding: 8rem 2rem;
+            text-align: center;
+            border-radius: 0 0 3rem 3rem;
+        }
+        .hero-sub h1 {
+            font-size: 3.5rem;
+            color: var(--asu-gold);
+            margin-bottom: 1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+        .hero-sub p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .luxury-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            border: 2px solid var(--asu-gold);
+            transition: all 0.3s;
+        }
+        .luxury-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--asu-maroon);
+            margin-bottom: 1.5rem;
+        }
+
+        .emergency-notice {
+            background: var(--asu-maroon);
+            color: white;
+            padding: 3rem;
+            border-radius: 2rem;
+            text-align: center;
+            margin: 5rem 0;
+            border: 2px solid var(--asu-gold);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav-bar">
+        <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--asu-maroon); letter-spacing: -0.03em;">VALLEY <span style="color: var(--asu-gold);">EXPRESS</span></div>
+        <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+        <div class="nav-links">
+        <a href="../index.html" class="nav-link">HOME</a>
+        <a href="../medical.html" class="nav-link">MEDICAL</a>
+        <a href="../middle-mile.html" class="nav-link">MIDDLE MILE</a>
+        <a href="../final-mile.html" class="nav-link">FINAL MILE</a>
+        <a href="../logistics.html" class="nav-link">SOVEREIGN OS</a>
+        <a href="../drivers.html" class="nav-link">DRIVERS</a>
+        <a href="../contact.html" class="nav-link">CONTACT</a>
+        <a href="../login.html" class="nav-link">LOGIN</a>
+        <a href="../quote.html" class="btn-get-quote-nav" style="background-color: var(--asu-maroon); color: white; padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; font-weight: 700;">GET QUOTE</a>
+    </div>
+</nav>
+
+<div class="hero-sub">
+    <h1>STAT & Critical Care Logistics</h1>
+    <p>Rapid response for STAT specimens, blood/plasma/tissue transport, and 24/7 emergency on‑call courier services across Arizona.</p>
+    <a href="../quote.html?service=stat-critical" class="btn-gold" style="background: var(--asu-gold); color: var(--asu-maroon); padding: 1.2rem 3rem; border-radius: 3rem; font-weight: 800; text-decoration: none;">Request STAT Pickup →</a>
+</div>
+
+<div class="container">
+    <h2 style="color: var(--asu-maroon); font-family: 'Outfit', sans-serif; font-size: 2.5rem; margin-top: 4rem;">When Every Minute Counts</h2>
+    <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 900px; margin-bottom: 3rem;">Time‑sensitive medical deliveries require immediate dispatch, specialized handling, and unwavering compliance. Our STAT & Critical Care logistics service combines three essential offerings: STAT medical specimen transport, blood/plasma/tissue logistics, and 24/7 on‑call emergency courier support.</p>
+    
+    <div class="feature-grid">
+        <div class="luxury-card">
+            <div class="card-icon"><i class="fas fa-syringe"></i></div>
+            <h3 style="font-family: 'Outfit', sans-serif; color: var(--asu-maroon); margin-bottom: 1rem;">STAT Specimen & Lab Deliveries</h3>
+            <p>Rapid response for blood, urine, tissue samples, and diagnostic specimens with full chain of custody and temperature control.</p>
+        </div>
+        <div class="luxury-card">
+            <div class="card-icon"><i class="fas fa-tint"></i></div>
+            <h3 style="font-family: 'Outfit', sans-serif; color: var(--asu-maroon); margin-bottom: 1rem;">Blood, Plasma & Tissue Transport</h3>
+            <p>Safe, temperature‑controlled transport for life‑saving biological materials — DOT and OSHA compliant for Category B substances.</p>
+        </div>
+        <div class="luxury-card">
+            <div class="card-icon"><i class="fas fa-bell"></i></div>
+            <h3 style="font-family: 'Outfit', sans-serif; color: var(--asu-maroon); margin-bottom: 1rem;">On‑Call Emergency Medical Courier</h3>
+            <p>24/7 dispatch for nights, weekends, and holidays. Immediate response for urgent medical deliveries.</p>
+        </div>
+    </div>
+
+    <div class="emergency-notice">
+        <h2 style="color: var(--asu-gold); font-family: 'Outfit', sans-serif; margin-bottom: 1rem;">24/7 Emergency Dispatch</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem;">Our medical command center is operational around the clock to handle life-critical logistics.</p>
+        <a href="tel:1-800-VALLEY-EX" style="color: white; font-weight: 800; font-size: 1.5rem; text-decoration: none; border-bottom: 2px solid var(--asu-gold);">1-800-VALLEY-EX (Placeholder)</a>
+    </div>
+
+    <p style="text-align: center; font-weight: 600; color: var(--text-muted);">Ideal for: Hospitals, blood banks, trauma centers, surgical suites, and organ procurement organizations.</p>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Valley Express Transport LLC – Arizona's Trusted Medical & Logistics Partner</p>
+    <p style="font-size: 0.9rem; opacity: 0.7;">HIPAA · Bloodborne Pathogen · TWIC · Hazmat Certified</p>
+</footer>
+
+    <script>
+        // Mobile Menu Toggle Logic
+        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+            document.querySelector('.nav-links')?.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

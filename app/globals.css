@@ -1,0 +1,178 @@
+/* 🚛 VALLEY EXPRESS — ASU SOVEREIGN LOGISTICS v3.0 */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --asu-maroon: #8C1D40;
+  --asu-gold: #FFC627;
+  --bg-cream: #FEF9E8;
+  --surface-offwhite: #FFF5E6;
+  --surface-cream-dark: #F5E6D3;
+  --text-dark: #2C241A;
+  --text-muted: #5E5A55;
+  --medical-green: #2E7D32;
+  --stat-red: #C62828;
+  --light-gold: #FFF8E7;
+  --maroon-dark: #6e1532;
+  
+  --font-main: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-cream);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, .display-text {
+  font-family: var(--font-main);
+  color: var(--asu-maroon);
+  font-weight: 800;
+}
+
+/* BUTTONS - ASU STYLE */
+.btn-primary {
+  background-color: var(--asu-maroon);
+  color: white;
+  font-family: var(--font-main);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(140, 29, 64, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--maroon-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(140, 29, 64, 0.3);
+  color: white;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--asu-maroon);
+  border: 1.5px solid var(--asu-maroon);
+  padding: 0.8rem 1.8rem;
+  border-radius: 100px;
+  font-family: var(--font-main);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 13px;
+  transition: all 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-outline:hover {
+  background: var(--asu-maroon);
+  color: white;
+}
+
+/* LUXURY CARDS */
+.luxury-card {
+  background: white;
+  border: 2px solid var(--asu-gold);
+  border-radius: 2rem;
+  padding: 2.5rem;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.luxury-card:hover {
+  box-shadow: 0 20px 40px rgba(255,198,39,0.25);
+  transform: translateY(-6px);
+}
+
+/* NAVIGATION STRUCTURE */
+header.site-header {
+  background-color: var(--surface-offwhite);
+  border-bottom: 2px solid var(--asu-maroon);
+  padding: 1rem 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  align-items: center;
+}
+
+nav a {
+  color: var(--asu-maroon);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover, 
+nav a.active {
+  color: var(--asu-gold);
+  border-bottom-color: var(--asu-gold);
+}
+
+/* GRID & LAYOUT UTILS */
+.max-site {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-padding {
+  padding: 5rem 5%;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem !important; }
+  h2 { font-size: 2rem !important; }
+  .section-padding { padding: 3rem 1rem; }
+}
+

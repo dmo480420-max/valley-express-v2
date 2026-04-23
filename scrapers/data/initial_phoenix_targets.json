@@ -1,0 +1,82 @@
+[
+    {
+        "name": "US Distributing",
+        "category": "Distribution / Warehouse",
+        "region": "Phoenix",
+        "focus": "Pallet freight, store distribution",
+        "status": "High Priority",
+        "strategy": "Overflow carrier support"
+    },
+    {
+        "name": "Marshalls Distribution Center",
+        "category": "Distribution / Warehouse",
+        "region": "Phoenix",
+        "focus": "Regional shipments",
+        "status": "High Priority",
+        "strategy": "Overflow carrier support"
+    },
+    {
+        "name": "American Western Distribution",
+        "category": "Distribution / Warehouse",
+        "region": "Phoenix",
+        "focus": "Pallet freight",
+        "status": "High Priority",
+        "strategy": "Overflow carrier support"
+    },
+    {
+        "name": "Copper Star Home Medical Supplies",
+        "category": "Medical Supply",
+        "region": "Phoenix",
+        "focus": "Time-sensitive, repeat routes",
+        "status": "GOLD",
+        "strategy": "Time-sensitive medical logistics"
+    },
+    {
+        "name": "Haas Medical Supply",
+        "category": "Medical Supply",
+        "region": "Phoenix",
+        "focus": "Repeat routes, high margins",
+        "status": "GOLD",
+        "strategy": "Medical equipment delivery"
+    },
+    {
+        "name": "Spencer's TV & Appliance",
+        "category": "Retail / Appliance",
+        "region": "Phoenix",
+        "focus": "Last-mile, appliance delivery",
+        "status": "High Priority",
+        "strategy": "Last-mile / Overflow routes"
+    },
+    {
+        "name": "Ramjet Racing Performance Cycles",
+        "category": "Auto / Parts",
+        "region": "Phoenix",
+        "focus": "Wholesale auto suppliers, tires",
+        "status": "Underrated Lane Gold",
+        "strategy": "Dealership parts recovery"
+    },
+    {
+        "name": "Home Depot Distribution Center",
+        "category": "Warehouse",
+        "region": "Phoenix",
+        "focus": "Regional freight",
+        "status": "Call First",
+        "strategy": "Regional logistics"
+    },
+    {
+        "name": "QuikTrip Distribution",
+        "category": "Warehouse",
+        "region": "Phoenix",
+        "focus": "Regional freight",
+        "status": "Call First",
+        "strategy": "Food/Store supply chain"
+    },
+    {
+        "name": "Barlows Distribution & Storage",
+        "category": "Warehouse",
+        "region": "Phoenix",
+        "focus": "Regional freight",
+        "status": "Call First",
+        "strategy": "General storage / shipping"
+    }
+]

@@ -1,0 +1,160 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Cron: Every Minute",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.couriergigs.com/v1/jobs",
+        "options": {}
+      },
+      "id": "2",
+      "name": "Scrape: CourierGigs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        300,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1kDdR2jBoUeDxeLI6OxXXQckU5U7x6LG_hmZCex31IKY",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Jobs",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "manual",
+          "value": {
+            "Job Description": "={{$json.title}}",
+            "Pay": "={{$json.pay}}",
+            "Location": "={{$json.location}}",
+            "Status": "NEW"
+          },
+          "matchingColumns": []
+        },
+        "options": {}
+      },
+      "id": "3",
+      "name": "Add to Google Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        500,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gemini-pro",
+        "prompt": "Score this delivery job for a medical courier in Phoenix, AZ.\n\nJob: {{$json.title}}\nPay: ${{$json.pay}}\n\nCriteria:\n1. Medical Urgency (0-50 pts)\n2. Profitability (0-50 pts)\n\nReturn ONLY the numerical score (0-100)."
+      },
+      "id": "4",
+      "name": "Gemini: AI Score",
+      "type": "n8n-nodes-base.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        500,
+        450
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1kDdR2jBoUeDxeLI6OxXXQckU5U7x6LG_hmZCex31IKY",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Jobs",
+          "mode": "name"
+        },
+        "dataMode": "map",
+        "columnToMatchOn": "Job Description",
+        "valueToMatchOn": "={{$json.title}}",
+        "valuesToSend": {
+          "values": [
+            {
+              "name": "AI Score",
+              "value": "={{$json.text}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5",
+      "name": "Update AI Score in Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        750,
+        450
+      ]
+    }
+  ],
+  "connections": {
+    "Cron: Every Minute": {
+      "main": [
+        [
+          {
+            "node": "Scrape: CourierGigs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape: CourierGigs": {
+      "main": [
+        [
+          {
+            "node": "Add to Google Sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gemini: AI Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini: AI Score": {
+      "main": [
+        [
+          {
+            "node": "Update AI Score in Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

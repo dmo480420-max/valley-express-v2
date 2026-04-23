@@ -1,0 +1,252 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutes": 15
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.roadie.com/v1/gigs",
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_ROADIE_KEY"
+            }
+          ]
+        }
+      },
+      "id": "2",
+      "name": "Roadie API (Model A)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        200,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.couriergigs.com/v1/jobs",
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "X-API-KEY",
+              "value": "YOUR_COURIERGIGS_KEY"
+            }
+          ]
+        }
+      },
+      "id": "3",
+      "name": "CourierGigs API (Model A)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        200,
+        350
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Phoenix-Specific Logistics Scorer\nconst jobs = items.map(item => {\n    const title = item.json.title || item.json.name;\n    const description = item.json.description || \"\";\n    const pay = parseFloat(item.json.pay || 0);\n    const distance = parseFloat(item.json.distance || 0);\n    \n    // Medical Keyword Score\n    const medKeywords = ['medical', 'specimen', 'lab', 'stat', 'pharm', 'pharma', 'blood', 'hospital'];\n    let medPoints = 0;\n    medKeywords.forEach(k => {\n        if (description.toLowerCase().includes(k)) medPoints += 15;\n    });\n    \n    // Profitability Score (Pay per mile)\n    const ppm = distance > 0 ? pay / distance : 0;\n    const profPoints = ppm > 2.0 ? 50 : (ppm > 1.2 ? 30 : 10);\n    \n    const totalScore = Math.min(100, medPoints + profPoints);\n    \n    return {\n        json: {\n            title,\n            pay,\n            distance,\n            score: totalScore,\n            isMedical: medPoints > 0,\n            url: item.json.url || \"#\"\n        }\n    };\n});\nreturn jobs;"
+      },
+      "id": "4",
+      "name": "Phoenix Logic Scaler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "databaseId": {
+          "__rl": true,
+          "value": "ENTER_NOTION_DB_ID",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Job Title",
+              "title": "={{$json.title}}"
+            },
+            {
+              "key": "Pay",
+              "number": "={{$json.pay}}"
+            },
+            {
+              "key": "AI Score",
+              "number": "={{$json.score}}"
+            },
+            {
+              "key": "Medical Flag",
+              "checkbox": "={{$json.isMedical}}"
+            },
+            {
+              "key": "Job URL",
+              "url": "={{$json.url}}"
+            }
+          ]
+        }
+      },
+      "id": "5",
+      "name": "Sync to Notion (Model B)",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.score}}",
+              "operation": "largerEqual",
+              "value2": 80
+            }
+          ]
+        }
+      },
+      "id": "6",
+      "name": "High Value Filter",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        950,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "phoenix-dispatch@yourdomain.com",
+        "toEmail": "msjac@yourdomain.com",
+        "subject": "🚨 HIGH VALUE GIG ALERT: {{$json.title}}",
+        "text": "Profit Score: {{$json.score}}\nPay: ${{$json.pay}}\nDistance: {{$json.distance}} miles\nLink: {{$json.url}}",
+        "options": {}
+      },
+      "id": "7",
+      "name": "Gmail Alert",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        1150,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "to": "+1PHOENIX_NUMBER",
+        "message": "={{'🚨 HIGH VALUE GIG (' + $json.score + '): ' + $json.title + ' | Pay: $' + $json.pay}}",
+        "accountSid": "cd8fd02a9c736033a276e8ac136dba25",
+        "authToken": "LzpUhuH8SpDIk3WtalNm3vwNAIpOiIaN"
+      },
+      "id": "8",
+      "name": "Twilio SMS",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        1150,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Roadie API (Model A)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "CourierGigs API (Model A)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Roadie API (Model A)": {
+      "main": [
+        [
+          {
+            "node": "Phoenix Logic Scaler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CourierGigs API (Model A)": {
+      "main": [
+        [
+          {
+            "node": "Phoenix Logic Scaler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Phoenix Logic Scaler": {
+      "main": [
+        [
+          {
+            "node": "Sync to Notion (Model B)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sync to Notion (Model B)": {
+      "main": [
+        [
+          {
+            "node": "High Value Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "High Value Filter": {
+      "main": [
+        [
+          {
+            "node": "Gmail Alert",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Twilio SMS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

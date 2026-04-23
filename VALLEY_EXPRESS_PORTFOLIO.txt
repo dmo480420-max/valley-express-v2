@@ -1,0 +1,9 @@
+N/A	(480) 630-3333	1150 N Recker Rd	copperstarmedical.com	Logistics	New	98
+N/A	(602) 233-1466	4120 W Van Buren	usdistributing.com	Logistics	Warming	88
+N/A	(602) 437-0022	2315 E McDowell	haasmedical.com	Logistics	New	95
+N/A	(602) 272-3592	2602 S 19th Ave	awd-phx.com	Logistics	Active	85
+N/A	(480) 413-1400	2044 W Southern	spencers.com	Logistics	Warming	78
+N/A	(602) 788-0012	16210 N Cave Creek	ramjetracing.com	Logistics	New	82
+N/A	(602) 352-1111	4800 W Roosevelt	homedepot.com	Logistics	Watching	72
+N/A	(623) 936-3900	7800 W Buckeye	quiktrip.com	Logistics	New	80
+N/A	(602) 278-8381	1001 S 51st Ave	barlows.com	Logistics	New	70

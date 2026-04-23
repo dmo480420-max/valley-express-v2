@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Valley Express – Final Mile Delivery | Arizona's Trusted Courier</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Outfit:wght@200;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <style>
+        /* Unique styles for Final Mile */
+        .hero-final-mile {
+            background: linear-gradient(135deg, var(--asu-maroon) 0%, #6e1532 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            border-radius: 0 0 3rem 3rem;
+            margin-bottom: 3rem;
+        }
+        .hero-final-mile h1 {
+            font-size: 3.5rem;
+            color: var(--asu-gold);
+            margin-bottom: 1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+        .hero-final-mile p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Gopher Courier inspired Selector */
+        .service-selector-container {
+            background: var(--surface-offwhite);
+            border-radius: 2rem;
+            padding: 3rem;
+            border: 2px solid var(--asu-gold);
+            margin-bottom: 4rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        .selector-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .selector-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--asu-maroon);
+            flex: 1;
+            min-width: 250px;
+        }
+        .custom-select {
+            flex: 2;
+            min-width: 300px;
+            position: relative;
+        }
+        select {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border-radius: 1.5rem;
+            border: 2px solid var(--asu-maroon);
+            background: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--asu-maroon);
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        select:focus {
+            outline: none;
+            border-color: var(--asu-gold);
+            box-shadow: 0 0 0 4px rgba(255,198,39,0.1);
+        }
+        .select-arrow {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--asu-maroon);
+            pointer-events: none;
+        }
+
+        .description-box {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            border-left: 8px solid var(--asu-gold);
+            margin-top: 2rem;
+            transition: all 0.4s ease;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .description-box h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            color: var(--asu-maroon);
+            margin-bottom: 1rem;
+        }
+        .description-box p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Luxury Cards */
+        .luxury-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        .luxury-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            border: 1px solid rgba(140, 29, 64, 0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .luxury-card:hover {
+            border-color: var(--asu-gold);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(255,198,39,0.1);
+        }
+        .luxury-card i {
+            font-size: 3rem;
+            color: var(--asu-maroon);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-gold-large {
+            background-color: var(--asu-gold);
+            color: var(--asu-maroon);
+            padding: 1.2rem 3rem;
+            border-radius: 3rem;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: inline-block;
+            margin-top: 2rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: none;
+            cursor: pointer;
+        }
+        .btn-gold-large:hover {
+            background-color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,198,39,0.3);
+        }
+        
+        /* Mobile adjustment */
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--asu-maroon); }
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links { display: none; width: 100%; flex-direction: column; background: white; padding: 1rem; position: absolute; top: 80px; left: 0; box-shadow: 0 10px 10px rgba(0,0,0,0.1); }
+            .nav-links.show { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+    <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--asu-maroon); letter-spacing: -0.03em;">VALLEY <span style="color: var(--asu-gold);">EXPRESS</span></div>
+    <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="medical.html" class="nav-link">MEDICAL</a>
+        <a href="middle-mile.html" class="nav-link">MIDDLE MILE</a>
+        <a href="final-mile.html" class="nav-link">FINAL MILE</a>
+        <a href="logistics.html" class="nav-link">SOVEREIGN OS</a>
+        <a href="drivers.html" class="nav-link">DRIVERS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+        <a href="login.html" class="nav-link">LOGIN</a>
+        <a href="quote.html" class="btn-get-quote-nav" style="background-color: var(--asu-maroon); color: white; padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; font-weight: 700;">GET QUOTE</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero-final-mile">
+    <h1>Final Mile Delivery – Arizona</h1>
+    <p>White-glove, same-day, and scheduled delivery from distribution center to doorstep across the Phoenix metro, Tucson, and Flagstaff corridors.</p>
+</header>
+
+<div class="container">
+    <!-- Service Selector -->
+    <div class="service-selector-container">
+        <div class="selector-header">
+            <div class="selector-label"><i class="fas fa-truck-loading"></i> Final Mile Solutions</div>
+            <div class="custom-select">
+                <select id="finalMileSelect">
+                    <option value="hotshot">Hotshot Delivery</option>
+                    <option value="same-day">Same Day Delivery</option>
+                    <option value="warehouse">Warehouse Delivery</option>
+                    <option value="industrial">Industrial Delivery</option>
+                    <option value="engineering">Engineering Delivery</option>
+                    <option value="court">Court Courier Services</option>
+                    <option value="title">Title, Escrow & Bank Courier</option>
+                </select>
+                <i class="fas fa-chevron-down select-arrow"></i>
+            </div>
+            <button class="btn-gold-large" id="quoteBtn">Get Quote →</button>
+        </div>
+
+        <div id="serviceDescription" class="description-box">
+            <h3 id="serviceTitle">Hotshot Delivery</h3>
+            <p id="serviceText">Expedited, direct, point-to-point delivery for urgent industrial parts, documents, or small freight. No hubs – just immediate dispatch.</p>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="luxury-grid">
+        <div class="luxury-card">
+            <i class="fas fa-truck"></i>
+            <h3 style="font-family: 'Outfit', sans-serif; color: var(--asu-maroon); margin-bottom: 1rem;">Fleet Optimization</h3>
+            <p>From sedans for documents to box trucks with liftgates for industrial equipment. We match the asset to the mission.</p>
+        </div>
+        <div class="luxury-card">
+            <i class="fas fa-map-marked-alt"></i>
+            <h3 style="font-family: 'Outfit', sans-serif; color: var(--asu-maroon); margin-bottom: 1rem;">Arizona Precision</h3>
+            <p>Hyper-local expertise in Phoenix, Tucson, and Flagstaff. We know the fastest routes through the I-10 and I-17 corridors.</p>
+        </div>
+        <div class="luxury-card">
+            <i class="fas fa-file-signature"></i>
+            <h3 style="font-family: 'Outfit', sans-serif; color: var(--asu-maroon); margin-bottom: 1rem;">Verified Integrity</h3>
+            <p>Electronic signature capture, high-resolution photo proof, and real-time GPS breadcrumbs for every delivery.</p>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Valley Express Transport LLC – Arizona's Final Mile & Logistics Partner</p>
+    <p style="font-size: 0.9rem; opacity: 0.7;">Same-Day · Hotshot · Industrial · Warehouse · Court · Title & Escrow</p>
+</footer>
+
+<script>
+    // Mobile Menu Toggle
+    document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+        document.querySelector('.nav-links')?.classList.toggle('show');
+    });
+
+    const serviceData = {
+        hotshot: { title: "Hotshot Delivery", text: "Expedited, direct, point-to-point delivery for urgent industrial parts, documents, or small freight. No hubs – just immediate dispatch for time-critical assets." },
+        "same-day": { title: "Same Day Delivery", text: "Fast, reliable same-day delivery for packages, medical supplies, retail goods, and legal documents across the Phoenix metro and beyond. Delivery guaranteed within business hours." },
+        warehouse: { title: "Warehouse Delivery Services", text: "Efficient warehouse logistics – cross-dock transfers, bulk supply delivery, and scheduled routes for distribution centers and local fulfillment hubs." },
+        industrial: { title: "Industrial Delivery Services", text: "Heavy-duty final mile for industrial components, machinery parts, and construction materials. Box trucks with liftgates available for heavy-palletized freight." },
+        engineering: { title: "Engineering Delivery Services", text: "Time-sensitive delivery of blueprints, prototypes, and engineering samples to job sites, labs, and client offices with secure handling." },
+        court: { title: "Court Courier Services", text: "Legal document filing, summons, subpoenas, and court filings with verified proof of service and strict adherence to legal deadlines." },
+        title: { title: "Title, Escrow & Bank Courier", text: "Secure transport of title documents, escrow papers, mortgage packages, and bank deposits. Bonded, confidential, and fully compliant with financial security protocols." }
+    };
+
+    const selectEl = document.getElementById('finalMileSelect');
+    const titleEl = document.getElementById('serviceTitle');
+    const textEl = document.getElementById('serviceText');
+
+    function updateDescription() {
+        const key = selectEl.value;
+        const data = serviceData[key];
+        if (data) {
+            titleEl.innerText = data.title;
+            textEl.innerText = data.text;
+        }
+    }
+
+    selectEl.addEventListener('change', updateDescription);
+    updateDescription();
+
+    document.getElementById('quoteBtn').addEventListener('click', () => {
+        const selected = selectEl.options[selectEl.selectedIndex].text;
+        alert(`Quote requested for ${selected} service. A Valley Express dispatch agent will contact you within 5 minutes with a custom rate.`);
+        // In production: window.location.href = `quote.html?service=final-mile&subtype=${selectEl.value}`;
+    });
+</script>
+
+</body>
+</html>

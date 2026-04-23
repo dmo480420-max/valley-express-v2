@@ -1,0 +1,97 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "databaseId": {
+          "__rl": true,
+          "value": "ENTER_NOTION_DB_ID",
+          "mode": "id"
+        },
+        "filter": {
+          "conditions": [
+            {
+              "key": "AI Score",
+              "condition": "is_empty"
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Poll New Jobs",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gemini-pro",
+        "prompt": "Score this delivery job for a medical courier in Phoenix, AZ.\n\nJob: {{$json.properties['Job Title'].title[0].plain_text}}\nDescription: {{$json.properties['Raw Meta'].rich_text[0].plain_text}}\nPay: {{$json.properties['Pay'].number}}\n\nCriteria:\n1. Medical Urgency (0-50 pts)\n2. Profitability (Pay vs Phoenix Traffic) (0-50 pts)\n\nReturn ONLY the numerical score (0-100)."
+      },
+      "id": "2",
+      "name": "Gemini AI Scoring",
+      "type": "n8n-nodes-base.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        300,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": "={{$node['Poll New Jobs'].json.id}}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "AI Score",
+              "number": "={{$json.score}}"
+            }
+          ]
+        }
+      },
+      "id": "3",
+      "name": "Update Notion Score",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Poll New Jobs": {
+      "main": [
+        [
+          {
+            "node": "Gemini AI Scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini AI Scoring": {
+      "main": [
+        [
+          {
+            "node": "Update Notion Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

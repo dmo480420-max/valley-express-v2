@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Sovereign OS – Valley Express</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@200;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <style>
+        .os-badge {
+            display: inline-block;
+            background: #ede7f6;
+            color: #512da8;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+        h2 { 
+            margin-top: 2.5rem; 
+            border-left: 5px solid var(--asu-gold); 
+            padding-left: 1.5rem; 
+            margin-bottom: 1rem;
+        }
+        .process-flow { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+        .process-step { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .step-num { 
+            background: var(--asu-maroon); 
+            color: white; 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-weight: 800; 
+            flex-shrink: 0; 
+            box-shadow: 0 4px 10px rgba(140, 29, 64, 0.2);
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--asu-maroon) 0%, var(--maroon-dark) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 0 0 3rem 3rem;
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+    <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--asu-maroon); letter-spacing: -0.03em;">VALLEY <span style="color: var(--asu-gold);">EXPRESS</span></div>
+    <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="medical.html" class="nav-link">MEDICAL</a>
+        <a href="middle-mile.html" class="nav-link">MIDDLE MILE</a>
+        <a href="final-mile.html" class="nav-link">FINAL MILE</a>
+        <a href="logistics.html" class="nav-link">SOVEREIGN OS</a>
+        <a href="drivers.html" class="nav-link">DRIVERS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+        <a href="login.html" class="nav-link">LOGIN</a>
+        <a href="quote.html" class="btn-get-quote-nav" style="background-color: var(--asu-maroon); color: white; padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; font-weight: 700;">GET QUOTE</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+    <h1>Sovereign Logistics OS</h1>
+    <p>TWIN AI Architecture · Real-Time Telemetry</p>
+</header>
+
+<div class="container">
+    <div class="content-card">
+        <span class="os-badge"><i class="fas fa-microchip"></i> INTEGRATED COMMAND SYSTEM</span>
+        <p class="subtitle" style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem;">The integrated command system powering Valley Express. Where rigorous auditing meets precision execution.</p>
+
+        <div class="process-flow">
+            <div class="process-step">
+                <div class="step-num">1</div>
+                <div>
+                    <h3 style="margin: 0; color: var(--asu-maroon);">Audit</h3>
+                    <p>The Aletheia Protocol vets leads for compliance, margin, and operational feasibility before they reach dispatch.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-num">2</div>
+                <div>
+                    <h3 style="margin: 0; color: var(--asu-maroon);">Dispatch</h3>
+                    <p>Verified jobs are pushed to the Luminous Dispatch Terminal, matching loads with the ideal vehicle and driver.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="step-num">3</div>
+                <div>
+                    <h3 style="margin: 0; color: var(--asu-maroon);">Strike</h3>
+                    <p>Precision execution with real-time telemetry, digital proof of delivery, and automated ledger updates.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Core Technologies</h2>
+        <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+            <li style="margin-bottom: 0.8rem;"><strong>Strike Console V2</strong>: A high-fidelity telemetry interface for real-time fleet monitoring.</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Firebase Real-time Ledger</strong>: A single source of truth for all logistics events and financial data.</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Neural Dispatch</strong>: AI-driven route optimization for the Southwest's most complex corridors.</li>
+        </ul>
+
+        <div style="margin-top: 4rem; text-align: center;">
+            <a href="contact.html" class="button" style="padding: 1.2rem 3rem; font-size: 1.2rem;">Connect with Dispatch</a>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Valley Express Transport LLC – Arizona's Trusted Medical & Logistics Partner</p>
+    <p style="font-size: 0.9rem; opacity: 0.7;">HIPAA · Bloodborne Pathogen · TWIC · Hazmat Certified · Fully Insured</p>
+</footer>
+
+    <script>
+        // Mobile Menu Toggle Logic
+        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+            document.querySelector('.nav-links')?.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

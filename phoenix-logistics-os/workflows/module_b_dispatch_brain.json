@@ -1,0 +1,195 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "databaseId": {
+          "__rl": true,
+          "value": "RAW_JOBS_DB_ID",
+          "mode": "id"
+        },
+        "filter": {
+          "conditions": [
+            {
+              "key": "Status",
+              "status": {
+                "value": "New"
+              }
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Listen for New Jobs",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gemini-pro-1.5",
+        "prompt": "Analyze this Phoenix logistics gig for profitability and medical sensitivity.\n\nJob: {{$json.properties['Job Title'].title[0].plain_text}}\nPlatform: {{$json.properties['Platform'].select.name}}\nPay: ${{$json.properties['Pay'].number}}\n\nCalculate Score (0-100) based on:\n1. Medical Keywords (Specimen/Lab/Stat = +40)\n2. Pay Density (High pay for low distance = +40)\n3. Urgency (+20)\n\nReturn JSON: {\"score\": number, \"grade\": \"A+|A|B|C\", \"medFlag\": boolean, \"rationale\": \"string\"}"
+      },
+      "id": "2",
+      "name": "Gemini AI Brain",
+      "type": "n8n-nodes-base.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "databaseId": {
+          "__rl": true,
+          "value": "FILTERED_JOBS_DB_ID",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Opportunity",
+              "title": "={{$node['Listen for New Jobs'].json.properties['Job Title'].title[0].plain_text}}"
+            },
+            {
+              "key": "AI Score",
+              "number": "={{$json.score}}"
+            },
+            {
+              "key": "AI Grade",
+              "select": "={{$json.grade}}"
+            },
+            {
+              "key": "Medical Flag",
+              "checkbox": "={{$json.medFlag}}"
+            }
+          ]
+        }
+      },
+      "id": "3",
+      "name": "Create Filtered Opp",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.score}}",
+              "operation": "largerEqual",
+              "value2": 85
+            }
+          ]
+        }
+      },
+      "id": "4",
+      "name": "Is High Value?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "to": "+1PHOENIX_NUMBER",
+        "message": "={{'🚨 HIGH VALUE GIG (' + $json.grade + '): ' + $node['Listen for New Jobs'].json.properties['Job Title'].title[0].plain_text + ' | Pay: $' + $node['Listen for New Jobs'].json.properties['Pay'].number}}",
+        "accountSid": "cd8fd02a9c736033a276e8ac136dba25",
+        "authToken": "LzpUhuH8SpDIk3WtalNm3vwNAIpOiIaN"
+      },
+      "id": "5",
+      "name": "Twilio SMS",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "page",
+        "operation": "createComment",
+        "pageId": "={{$json.id}}",
+        "text": "={{$node['Gemini AI Brain'].json.rationale}}"
+      },
+      "id": "6",
+      "name": "Notion Comment",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        450
+      ]
+    }
+  ],
+  "connections": {
+    "Listen for New Jobs": {
+      "main": [
+        [
+          {
+            "node": "Gemini AI Brain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gemini AI Brain": {
+      "main": [
+        [
+          {
+            "node": "Create Filtered Opp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Filtered Opp": {
+      "main": [
+        [
+          {
+            "node": "Is High Value?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is High Value?": {
+      "main": [
+        [
+          {
+            "node": "Twilio SMS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notion Comment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

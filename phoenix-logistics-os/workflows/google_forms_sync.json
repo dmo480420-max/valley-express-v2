@@ -1,0 +1,71 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "google-forms-sync",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Forms Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        0,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "databaseId": {
+          "__rl": true,
+          "value": "BOOKED_JOBS_DB_ID",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Active Run",
+              "title": "={{$json.body.job_title}}"
+            },
+            {
+              "key": "Client Name",
+              "rich_text": [
+                {
+                  "text": {
+                    "content": "={{$json.body.client_name}}"
+                  }
+                }
+              ]
+            },
+            {
+              "key": "Booking Source",
+              "select": "Google Forms"
+            }
+          ]
+        }
+      },
+      "id": "2",
+      "name": "Create Booked Job",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        300,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Forms Webhook": {
+      "main": [
+        [
+          {
+            "node": "Create Booked Job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

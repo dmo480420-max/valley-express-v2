@@ -1,0 +1,170 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutes": 30
+            }
+          ]
+        }
+      },
+      "id": "1",
+      "name": "Every 30 Mins",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "actor": "apify/facebook-marketplace-scraper",
+        "input": "{\"searchQueries\": [\"Phoenix delivery\", \"Phoenix moving help\", \"Phoenix courier\"], \"location\": \"Phoenix, AZ\"}",
+        "apiToken": "apify_api_n8jTIC0yJPmBg0ZwfrnDPg844kF3O843yztg"
+      },
+      "id": "2",
+      "name": "FB Marketplace (Apify)",
+      "type": "n8n-nodes-base.apify",
+      "typeVersion": 1,
+      "position": [
+        200,
+        150
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.roadie.com/v1/gigs",
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_ROADIE_KEY"
+            }
+          ]
+        }
+      },
+      "id": "3",
+      "name": "Roadie API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        200,
+        450
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "distanceMatrix",
+        "origins": "={{$json.pickup_location}}",
+        "destinations": "={{$json.dropoff_location}}",
+        "options": {}
+      },
+      "id": "4",
+      "name": "Google Maps Matrix",
+      "type": "n8n-nodes-base.googleMaps",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "databaseId": {
+          "__rl": true,
+          "value": "RAW_JOBS_DB_ID",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Job Title",
+              "title": "={{$json.title}}"
+            },
+            {
+              "key": "Platform",
+              "select": "={{$node['FB Marketplace (Apify)'].json.platform || 'Roadie'}}"
+            },
+            {
+              "key": "Pay",
+              "number": "={{$json.pay}}"
+            },
+            {
+              "key": "Raw Payload",
+              "rich_text": [
+                {
+                  "text": {
+                    "content": "={{JSON.stringify($json)}}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "id": "5",
+      "name": "Push to THE RADAR",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [
+        700,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Every 30 Mins": {
+      "main": [
+        [
+          {
+            "node": "FB Marketplace (Apify)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Roadie API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FB Marketplace (Apify)": {
+      "main": [
+        [
+          {
+            "node": "Google Maps Matrix",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Roadie API": {
+      "main": [
+        [
+          {
+            "node": "Google Maps Matrix",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Maps Matrix": {
+      "main": [
+        [
+          {
+            "node": "Push to THE RADAR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

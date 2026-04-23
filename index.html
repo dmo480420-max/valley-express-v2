@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valley Express | Sovereign Dispatch Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --asu-maroon: #8C1D40;
+            --asu-gold: #FFC627;
+            --bg-cream: #FEF9E8;
+            --surface-offwhite: #FFF5E6;
+            --text-dark: #2C241A;
+            --card-glass: rgba(140, 29, 64, 0.03);
+            --gold-glow: rgba(255, 198, 39, 0.2);
+            --maroon-glow: rgba(140, 29, 64, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Animated Grainy Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 0% 0%, var(--maroon-glow) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, var(--gold-glow) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        /* HEADER */
+        header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--asu-gold);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span { color: var(--text-dark); font-weight: 300; }
+
+        /* TABS */
+        .nav-tabs {
+            display: flex;
+            gap: 20px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            padding: 10px 0;
+            opacity: 0.6;
+            transition: 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn.active {
+            opacity: 1;
+            border-bottom: 2px solid var(--asu-gold);
+            color: var(--asu-gold);
+        }
+
+        /* MAIN CONTENT */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .view-section { display: none; }
+        .view-section.active { display: block; animation: fadeIn 0.5s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CARD GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        /* LYNX LEAD CARD */
+        .lead-card {
+            background: var(--card-glass);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lead-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--asu-gold);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .tier-badge {
+            position: absolute;
+            top: 0; right: 0;
+            padding: 8px 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-bottom-left-radius: 15px;
+            text-transform: uppercase;
+        }
+
+        .tier-gold { background: var(--asu-gold); color: black; }
+        .tier-silver { background: #E5E4E2; color: black; }
+        .tier-routine { background: #AE713F; color: white; }
+
+        .lead-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--asu-maroon);
+        }
+
+        .lead-card .company {
+            color: var(--asu-gold);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .lead-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .lead-meta span { display: flex; align-items: center; gap: 8px; }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-sm {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-dark);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-sm:hover {
+            background: var(--asu-gold);
+            color: black;
+        }
+
+        /* TELEMETRY VIEW */
+        .telemetry-node {
+            max-width: 600px;
+            margin: 100px auto;
+            text-align: center;
+            padding: 4rem;
+            background: var(--card-glass);
+            border-radius: 30px;
+            border: 1px solid var(--asu-gold);
+        }
+
+        .pulse-core {
+            width: 80px;
+            height: 80px;
+            background: var(--asu-maroon);
+            border: 2px solid var(--asu-gold);
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(255, 198, 39, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 198, 39, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 198, 39, 0); }
+        }
+
+        .loader-text {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--asu-gold);
+            margin-top: 20px;
+        }
+
+        /* STATS BAR */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: var(--card-glass);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid var(--asu-gold);
+        }
+
+        .stat-val { font-size: 1.5rem; font-weight: 700; color: var(--asu-gold); }
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🔱 VALLEY<span>EXPRESS</span></div>
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchView('acquisition')">TARGET ACQUISITION</button>
+            <button class="tab-btn" onclick="switchView('telemetry')">LIVE TELEMETRY</button>
+            <button class="tab-btn" onclick="switchView('heartbeat')">HEARTBEAT</button>
+        </div>
+        <div id="connection-status" style="font-size: 0.7rem; font-family: 'JetBrains Mono'; color: #00ff00;">● SYNC ACTIVE</div>
+    </header>
+
+    <main>
+        <!-- STATS -->
+        <div class="stats-bar">
+            <div class="stat-box">
+                <div class="stat-val" id="stat-leads">---</div>
+                <div class="stat-label">Neural Leads</div>
+            </div>
+            <div class="stat-box" style="border-color: #00ff00;">
+                <div class="stat-val">2.4m</div>
+                <div class="stat-label">Avg Scrutiny Time</div>
+            </div>
+            <div class="stat-box" style="border-color: var(--asu-maroon);">
+                <div class="stat-val" id="stat-active">0</div>
+                <div class="stat-label">Active Drivers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-val" id="stat-pulse">LIVE</div>
+                <div class="stat-label">Sniper Status</div>
+            </div>
+        </div>
+
+        <!-- TARGET ACQUISITION VIEW -->
+        <section id="acquisition-view" class="view-section active">
+            <div class="grid" id="leads-grid">
+                <!-- LEADS INJECTED HERE -->
+                <div class="loader-text">Waking Neural Core...</div>
+            </div>
+        </section>
+
+        <!-- LIVE TELEMETRY VIEW -->
+        <section id="telemetry-view" class="view-section">
+            <div class="telemetry-node">
+                <div class="pulse-core">🛰️</div>
+                <h3 id="driver-status">IDENTIFY CALLSIGN</h3>
+                <div id="telemetry-log" class="loader-text" style="color: var(--text-dark); margin-top: 10px;">Awaiting Identity...</div>
+                <div style="margin-top: 30px;">
+                    <input type="text" id="callsign" placeholder="Enter Callsign" style="background: white; border: 1px solid var(--asu-gold); padding: 10px; color: var(--text-dark); border-radius: 5px; width: 200px;">
+                    <button onclick="startTelemetry()" style="background: var(--asu-gold); color: black; border: none; padding: 10px 20px; font-weight: 700; cursor: pointer; border-radius: 5px;">ACTIVATE</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HEARTBEAT VIEW -->
+        <section id="heartbeat-view" class="view-section">
+            <div id="heartbeat-log" style="font-family: 'JetBrains Mono'; font-size: 0.8rem; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                <!-- LOGS HERE -->
+                [SYSTEM] Neural Dispatch v2.0 Initialized...
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let currentView = 'acquisition';
+        let refreshInterval;
+
+        function switchView(view) {
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(view + '-view').classList.add('active');
+            event.target.classList.add('active');
+            currentView = view;
+
+            if (view === 'acquisition') fetchLeads();
+        }
+
+        function fetchLeads() {
+            try {
+                google.script.run
+                    .withSuccessHandler(renderLeads)
+                    .withFailureHandler(err => console.error(err))
+                    .getSheetData("Marketing Targets");
+            } catch(e) {
+                // Mock data for local testing
+                renderLeads([
+                    {"Company": "Phoenix Medical Center", "Job Title": "Medical Courier Support", "AI Scrutiny": "GOLD", "Telephone Number": "602-555-0199", "Email": "logistics@phxmed.com", "Status": "New"},
+                    {"Company": "AZ Industrial Supply", "Job Title": "Last Mile Specialist", "AI Scrutiny": "SILVER", "Telephone Number": "480-555-0244", "Email": "fleet@azsupply.com", "Status": "Scanned"}
+                ]);
+            }
+        }
+
+        function renderLeads(leads) {
+            const grid = document.getElementById('leads-grid');
+            grid.innerHTML = '';
+            document.getElementById('stat-leads').innerText = leads.length;
+
+            leads.forEach(lead => {
+                const tierClass = lead["AI Scrutiny"] === "GOLD" ? "tier-gold" : 
+                                 lead["AI Scrutiny"] === "SILVER" ? "tier-silver" : "tier-routine";
+                
+                const card = `
+                    <div class="lead-card">
+                        <div class="tier-badge ${tierClass}">${lead["AI Scrutiny"] || "BRONZE"}</div>
+                        <div class="company">${lead["Company"] || "N/A"}</div>
+                        <h3>${lead["Job Title"] || "Lead Identified"}</h3>
+                        <div class="lead-meta">
+                            <span>📞 ${lead["Telephone Number"] || "PRIVATE"}</span>
+                            <span>✉️ ${lead["Email"] || "N/A"}</span>
+                            <span>⚡ UNIFIED STATUS: ${lead["Status"]}</span>
+                        </div>
+                        <div class="action-btns">
+                            <a href="tel:${lead["Telephone Number"]}" class="btn-sm">CALL</a>
+                            <a href="mailto:${lead["Email"]}" class="btn-sm">EMAIL</a>
+                            <button class="btn-sm" onclick="markDone('${lead.__row__}')">MARK DONE</button>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        function startTelemetry() {
+            const callsign = document.getElementById('callsign').value;
+            if (!callsign) return;
+            
+            document.getElementById('driver-status').innerText = `CALLSIGN: ${callsign.toUpperCase()}`;
+            document.getElementById('stat-active').innerText = "1";
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(pos => {
+                    const data = {
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude,
+                        driverName: callsign,
+                        status: "Active Dispatch"
+                    };
+                    document.getElementById('telemetry-log').innerText = `LAT: ${data.lat.toFixed(5)} | LNG: ${data.lng.toFixed(5)}`;
+                    
+                    try {
+                        google.script.run.processDelivery(data);
+                    } catch(e) {}
+                });
+            }
+        }
+
+        // Initial Load
+        window.onload = () => {
+            fetchLeads();
+            // Auto refresh every 5 minutes
+            setInterval(fetchLeads, 300000);
+        };
+    </script>
+</body>
+</html>

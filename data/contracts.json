@@ -1,0 +1,11 @@
+[
+  {
+    "company_name": "Banner Health",
+    "industry": "Medical",
+    "zone": "Downtown Phoenix",
+    "contract_type": "daily",
+    "avg_loads_per_week": 15,
+    "agreed_rate": 45.0,
+    "status": "Active"
+  }
+]

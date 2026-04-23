@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategy Hub – Valley Express</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@200;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <style>
+        .strat-badge {
+            display: inline-block;
+            background: #fff9c4;
+            color: #fbc02d;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+        h2 { 
+            margin-top: 2.5rem; 
+            border-left: 5px solid var(--asu-gold); 
+            padding-left: 1.5rem; 
+            margin-bottom: 1rem;
+        }
+        .mode-card {
+            background: white;
+            border: 1px solid rgba(140, 29, 64, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .mode-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(140, 29, 64, 0.08);
+            border-color: var(--asu-gold);
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--asu-maroon) 0%, var(--maroon-dark) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 0 0 3rem 3rem;
+            margin-bottom: 3rem;
+        }
+        .strategy-grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 1.5rem; 
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+    <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--asu-maroon); letter-spacing: -0.03em;">VALLEY <span style="color: var(--asu-gold);">EXPRESS</span></div>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="medical.html" class="nav-link">MEDICAL</a>
+        <a href="middle-mile.html" class="nav-link">MIDDLE MILE</a>
+        <a href="final-mile.html" class="nav-link">FINAL MILE</a>
+        <a href="logistics.html" class="nav-link">SOVEREIGN OS</a>
+        <a href="drivers.html" class="nav-link">DRIVERS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+        <a href="login.html" class="nav-link">LOGIN</a>
+        <a href="quote.html" class="btn-get-quote-nav" style="background-color: var(--asu-maroon); color: white; padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; font-weight: 700;">GET QUOTE</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+    <h1>Logistics Strategy Hub</h1>
+    <p>PHOENIX SECTOR EXPANSION • RICE & SCOPE</p>
+</header>
+
+<div class="container" style="padding-bottom: 5rem;">
+    <div class="content-card">
+        <span class="strat-badge"><i class="fas fa-chess-knight"></i> STRATEGIC DOMINANCE</span>
+        <p class="subtitle" style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem;">Strategic planning for the next phase of Arizona's logistics dominance.</p>
+
+        <h2>High-Margin Opportunities</h2>
+        <div class="strategy-grid">
+            <div class="mode-card">
+                <i class="fas fa-microscope" style="color: var(--asu-maroon); font-size: 1.5rem; margin-bottom: 1rem; display: block;"></i>
+                <strong style="font-size: 1.1rem; color: var(--asu-maroon);">Medical Courier Hubs</strong>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Scottsdale Dental Labs & Downtown Surgical Centers.</p>
+            </div>
+            <div class="mode-card">
+                <i class="fas fa-landmark" style="color: var(--asu-maroon); font-size: 1.5rem; margin-bottom: 1rem; display: block;"></i>
+                <strong style="font-size: 1.1rem; color: var(--asu-maroon);">B2G Procurement</strong>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Automated bidding on ADOT and Sky Harbor contracts.</p>
+            </div>
+            <div class="mode-card">
+                <i class="fas fa-store-alt" style="color: var(--asu-maroon); font-size: 1.5rem; margin-bottom: 1rem; display: block;"></i>
+                <strong style="font-size: 1.1rem; color: var(--asu-maroon);">Micro-Fulfillment</strong>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Repurposing urban retail for rapid last-mile delivery.</p>
+            </div>
+            <div class="mode-card">
+                <i class="fas fa-industry" style="color: var(--asu-maroon); font-size: 1.5rem; margin-bottom: 1rem; display: block;"></i>
+                <strong style="font-size: 1.1rem; color: var(--asu-maroon);">Industrial Hotshots</strong>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Critical transport for the Chandler tech corridor.</p>
+            </div>
+        </div>
+
+        <h2>Strategic Frameworks</h2>
+        <p>We utilize rigorous frameworks to ensure every mission is planned for success.</p>
+        <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+            <li style="margin-bottom: 0.8rem;"><strong>RICE Analysis</strong>: Role, Input, Context, Expectations – used for every specialized logistics mission.</li>
+            <li style="margin-bottom: 0.8rem;"><strong>SCOPE Planning</strong>: Situation, Complications, Objective, Plan, Evaluation – our roadmap for high-stakes execution.</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Aletheia Verification</strong>: Our proprietary truth-scoring system that vets leads before dispatch.</li>
+        </ul>
+
+        <h2>Brainstorming Agent Modes</h2>
+        <p>The Twin AI engine operates in several specialized modes to drive growth:</p>
+        <div class="strategy-grid">
+            <div class="mode-card" style="padding: 1.5rem;">
+                <strong style="color: var(--asu-maroon);">Lead Scouter</strong>
+                <p style="font-size: 0.85rem; margin-top: 0.4rem;">Hunter for un-indexed corporate logistics leads.</p>
+            </div>
+            <div class="mode-card" style="padding: 1.5rem;">
+                <strong style="color: var(--asu-maroon);">Senior Dispatcher</strong>
+                <p style="font-size: 0.85rem; margin-top: 0.4rem;">Optimizer of the Phoenix/Tucson route corridor.</p>
+            </div>
+            <div class="mode-card" style="padding: 1.5rem;">
+                <strong style="color: var(--asu-maroon);">SAM.gov Specialist</strong>
+                <p style="font-size: 0.85rem; margin-top: 0.4rem;">Master of federal acquisition regulations (FAR).</p>
+            </div>
+            <div class="mode-card" style="padding: 1.5rem;">
+                <strong style="color: var(--asu-maroon);">Compliance Sentinel</strong>
+                <p style="font-size: 0.85rem; margin-top: 0.4rem;">Guardian of safety and HIPAA certifications.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 4rem; text-align: center;">
+            <a href="index.html" class="button" style="padding: 1.2rem 3rem;">Return to Mission Control</a>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Valley Express Transport LLC – Arizona's Trusted Medical & Logistics Partner</p>
+    <p style="font-size: 0.9rem; opacity: 0.7;">HIPAA · Bloodborne Pathogen · TWIC · Hazmat Certified · Fully Insured</p>
+</footer>
+
+</body>
+</html>
