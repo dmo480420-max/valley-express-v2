@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Valley Express – TWIC/TSA Certified Middle Mile | Arizona</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Outfit:wght@200;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <style>
+        /* Unique styles for this page */
+        .hero-middle-mile {
+            background: linear-gradient(rgba(140, 29, 64, 0.7), rgba(44, 36, 26, 0.8)), 
+                        url('sky_harbor_cargo_logistics_1776908170630.png') center/cover no-repeat;
+            padding: 8rem 2rem;
+            text-align: center;
+            color: white;
+            border-radius: 0 0 3rem 3rem;
+            margin-bottom: 3rem;
+        }
+        .hero-middle-mile h1 {
+            font-size: 3.5rem;
+            color: var(--asu-gold);
+            margin-bottom: 1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+        .hero-middle-mile p {
+            font-size: 1.4rem;
+            max-width: 900px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+        }
+
+        /* Luxury gold border cards */
+        .luxury-gold-border {
+            border: 2px solid var(--asu-gold);
+            border-radius: 1.5rem;
+            background: white;
+            padding: 2.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .luxury-gold-border:hover {
+            box-shadow: 0 20px 40px rgba(255,198,39,0.15);
+            transform: translateY(-8px);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .pillar-icon {
+            font-size: 3rem;
+            color: var(--asu-maroon);
+            margin-bottom: 1.5rem;
+        }
+
+        .vehicle-card {
+            text-align: center;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            border: 1px solid rgba(140, 29, 64, 0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+            transition: all 0.3s;
+        }
+        .vehicle-card:hover {
+            border-color: var(--asu-gold);
+            transform: scale(1.02);
+        }
+        .vehicle-card i {
+            font-size: 3.5rem;
+            color: var(--asu-maroon);
+            margin-bottom: 1rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .faq-item {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 2rem;
+            border-left: 6px solid var(--asu-gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .faq-question {
+            font-weight: 800;
+            color: var(--asu-maroon);
+            margin-bottom: 0.8rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .cta-section {
+            background-color: var(--asu-maroon);
+            border-radius: 2.5rem;
+            padding: 5rem 2rem;
+            text-align: center;
+            color: white;
+            margin: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,198,39,0.1) 0%, transparent 70%);
+        }
+        .cta-section h2 {
+            color: var(--asu-gold);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+        .btn-gold {
+            background-color: var(--asu-gold);
+            color: var(--asu-maroon);
+            padding: 1.2rem 3rem;
+            border-radius: 3rem;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: inline-block;
+            margin-top: 2rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .btn-gold:hover {
+            background-color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255,198,39,0.3);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+    <nav class="nav-bar">
+        <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--asu-maroon); letter-spacing: -0.03em;">VALLEY <span style="color: var(--asu-gold);">EXPRESS</span></div>
+        <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+        <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="medical.html" class="nav-link">MEDICAL</a>
+        <a href="middle-mile.html" class="nav-link">MIDDLE MILE</a>
+        <a href="final-mile.html" class="nav-link">FINAL MILE</a>
+        <a href="logistics.html" class="nav-link">SOVEREIGN OS</a>
+        <a href="drivers.html" class="nav-link">DRIVERS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+        <a href="login.html" class="nav-link">LOGIN</a>
+        <a href="quote.html" class="btn-get-quote-nav" style="background-color: var(--asu-maroon); color: white; padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; font-weight: 700;">GET QUOTE</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero-middle-mile">
+    <h1>TWIC/TSA-Certified Middle Mile Drivers</h1>
+    <p>Expedite your B2B freight with certified drivers who have seamless access to Phoenix Sky Harbor International Airport (PHX) and secure facilities across Arizona. No delays, no red tape.</p>
+    <a href="quote.html?type=middle-mile" class="button" style="background: var(--asu-gold); color: var(--asu-maroon); padding: 1.2rem 3rem; font-size: 1.2rem;">Get a Middle Mile Quote →</a>
+</div>
+
+<div class="container">
+    <!-- Three Pillars -->
+    <h2 style="color: var(--asu-maroon); text-align: center; margin-bottom: 1rem; font-family: 'Outfit', sans-serif; font-size: 2.5rem;">The Valley Express Advantage</h2>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; color: var(--text-muted);">Federal-grade security protocols for every shipment.</p>
+    
+    <div class="pillars-grid">
+        <div class="luxury-gold-border">
+            <div class="pillar-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3 style="color: var(--asu-maroon); font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Rigorously Vetted</h3>
+            <p>Our drivers hold active TWIC and TSA certifications, undergoing the TSA's thorough threat assessment and biometric credentialing process.</p>
+        </div>
+        <div class="luxury-gold-border">
+            <div class="pillar-icon"><i class="fas fa-clipboard-list"></i></div>
+            <h3 style="color: var(--asu-maroon); font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Fully Compliant</h3>
+            <p>We adhere to all federal and state regulations for secure freight, ensuring your supply chain remains audit-ready and risk-free.</p>
+        </div>
+        <div class="luxury-gold-border">
+            <div class="pillar-icon"><i class="fas fa-tachometer-alt"></i></div>
+            <h3 style="color: var(--asu-maroon); font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 1rem;">Uninterrupted Access</h3>
+            <p>TWIC certification grants our drivers access to restricted air and maritime zones, fostering timely deliveries and operational efficacy.</p>
+        </div>
+    </div>
+
+    <!-- Network Showcase -->
+    <h2 style="color: var(--asu-maroon); text-align: center; font-family: 'Outfit', sans-serif; font-size: 2.5rem; margin-bottom: 1rem;">Our Arizona Middle Mile Network</h2>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; color: var(--text-muted);">Dedicated and scheduled middle-mile solutions anchored by our operations at Phoenix Sky Harbor (PHX). Core lanes include Phoenix, Tucson, and Flagstaff.</p>
+    
+    <div class="vehicles-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem;">
+        <div class="vehicle-card">
+            <i class="fas fa-shuttle-van"></i>
+            <h3 style="color: var(--asu-maroon); margin: 1rem 0; font-family: 'Outfit', sans-serif; font-size: 1.8rem;">Sprinter Vans</h3>
+            <p>Up to 2,500 lbs. Ideal for pallets, medical supplies, retail distribution, and urgent PHX airport runs.</p>
+        </div>
+        <div class="vehicle-card">
+            <i class="fas fa-truck-moving"></i>
+            <h3 style="color: var(--asu-maroon); margin: 1rem 0; font-family: 'Outfit', sans-serif; font-size: 1.8rem;">Box Trucks</h3>
+            <p>Up to 10,000 lbs. Perfect for bulk goods, cross-dock transfers, and heavy industrial freight across the I-10 and I-17 corridors.</p>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <h2 style="color: var(--asu-maroon); text-align: center; margin-top: 5rem; font-family: 'Outfit', sans-serif; font-size: 2.5rem;">Logistics Intelligence</h2>
+    <div class="faq-grid">
+        <div class="faq-item">
+            <div class="faq-question"><i class="fas fa-id-card"></i> Why certification matters?</div>
+            <p>The TWIC program ensures individuals accessing secure areas of ports and vessels are thoroughly vetted. For middle-mile logistics, this is pivotal for seamless access to air cargo facilities at PHX, preventing costly delays.</p>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><i class="fas fa-boxes"></i> What freight do we handle?</div>
+            <p>We handle a wide range of B2B freight suitable for Sprinter vans and box trucks, including general commodities, medical supplies, retail goods, and manufacturing components.</p>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><i class="fas fa-dollar-sign"></i> How to get a quote?</div>
+            <p>Simply click the "Get a Middle Mile Quote" button, fill out your shipment details, and our dispatch team will provide an instant, dynamic price based on the Sovereign OS engine.</p>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><i class="fas fa-map-marked-alt"></i> Routes beyond Phoenix?</div>
+            <p>Yes. Our dedicated middle-mile lanes include Phoenix ↔ Tucson and Phoenix ↔ Flagstaff, with scheduled daily departures and 24/7 on-demand options.</p>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Ready to Streamline Your Middle Mile?</h2>
+        <p style="max-width: 600px; margin: 0 auto; font-size: 1.2rem; opacity: 0.9;">Join the elite fleet of businesses relying on Valley Express for secure, compliant, and zero-delay logistics.</p>
+        <a href="contact.html" class="btn-gold">Activate Your Account →</a>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Valley Express Transport LLC – Arizona's Trusted Medical & Logistics Partner</p>
+    <p style="font-size: 0.9rem; opacity: 0.7;">TWIC · TSA · HIPAA · Bloodborne Pathogen · Hazmat Certified</p>
+</footer>
+
+    <script>
+        // Mobile Menu Toggle Logic
+        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+            document.querySelector('.nav-links')?.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

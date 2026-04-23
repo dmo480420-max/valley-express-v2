@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Valley Express – Contact & AI Dispatcher</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Outfit:wght@200;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <script>
+        // Mobile Menu Toggle Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+                document.querySelector('.nav-links')?.classList.toggle('show');
+            });
+        });
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --asu-maroon: #8C1D40;
+            --asu-gold: #FFC627;
+            --bg-cream: #FEF9E8;
+            --surface-offwhite: #FFF5E6;
+            --text-dark: #2C241A;
+            --text-muted: #5E5A55;
+        }
+        body {
+            background-color: var(--bg-cream);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.5;
+            padding: 0;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: white; }
+        .menu-toggle { display: none; font-size: 1.5rem; background: none; border: none; cursor: pointer; }
+        @media (max-width: 900px) {
+            .menu-toggle { display: block; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: white; padding: 1rem; z-index: 1000; }
+            .nav-links.show { display: flex; }
+        }
+        
+        /* Hero */
+        .hero-contact {
+            background: linear-gradient(135deg, var(--asu-maroon) 0%, #6e1532 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 0 0 3rem 3rem;
+            margin-bottom: 3rem;
+        }
+        .hero-contact h1 {
+            color: var(--asu-gold);
+            font-size: 3rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        /* Two column layout: Contact Info + Form */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 800px) {
+            .two-columns { grid-template-columns: 1fr; }
+        }
+        .info-card, .form-card {
+            background: var(--surface-offwhite);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            border: 1px solid var(--asu-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+        .info-card h3, .form-card h3 {
+            color: var(--asu-maroon);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+        .contact-detail {
+            margin: 1.2rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+        }
+        .contact-detail i {
+            font-size: 1.2rem;
+            color: var(--asu-maroon);
+            width: 1.5rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 1rem;
+            border: 1.5px solid #e2d9cf;
+            background: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--asu-maroon);
+            box-shadow: 0 0 0 4px rgba(140, 29, 64, 0.1);
+        }
+        .btn-primary {
+            background-color: var(--asu-maroon);
+            color: white;
+            border: none;
+            padding: 1.1rem 2rem;
+            border-radius: 2.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: var(--maroon-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Chat + FAQ side by side */
+        .chat-faq-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        @media (max-width: 800px) {
+            .chat-faq-row { grid-template-columns: 1fr; }
+        }
+
+        /* Chat Widget */
+        .chat-widget {
+            background: white;
+            border-radius: 1.5rem;
+            border: 2px solid var(--asu-gold);
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+        .chat-header {
+            background: var(--asu-maroon);
+            color: white;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background: #fdfcf9;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .message {
+            max-width: 85%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .user-message {
+            background: var(--asu-gold);
+            color: var(--asu-maroon);
+            font-weight: 600;
+            align-self: flex-end;
+            border-bottom-right-radius: 0.2rem;
+        }
+        .bot-message {
+            background: white;
+            border: 1px solid #e2d9cf;
+            align-self: flex-start;
+            border-bottom-left-radius: 0.2rem;
+        }
+        .chat-input-area {
+            display: flex;
+            padding: 1rem;
+            gap: 0.8rem;
+            border-top: 1px solid #eee;
+            background: white;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border-radius: 2rem;
+        }
+        #sendBtn {
+            background: var(--asu-maroon);
+            color: white;
+            border: none;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        #sendBtn:hover { transform: scale(1.05); background: var(--maroon-dark); }
+
+        /* FAQ Accordion */
+        .faq-section {
+            background: var(--surface-offwhite);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            border: 1px solid var(--asu-gold);
+        }
+        .faq-item {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(140,29,64,0.1);
+        }
+        .faq-question {
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            padding: 1.2rem 0;
+            font-weight: 700;
+            color: var(--asu-maroon);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            font-family: 'Outfit', sans-serif;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-muted);
+            padding-bottom: 0;
+            font-size: 1rem;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 1.2rem;
+        }
+
+        /* Map */
+        .map-container {
+            margin: 3rem 0;
+            border-radius: 2rem;
+            overflow: hidden;
+            border: 2px solid var(--asu-gold);
+            height: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        /* Legal / Terms Restoration */
+        .terms-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 2rem;
+            margin: 4rem 0;
+            border: 1px solid #eee;
+        }
+        .terms-content {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 2rem;
+            background: #fafafa;
+            border-radius: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+    <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--asu-maroon); letter-spacing: -0.03em;">VALLEY <span style="color: var(--asu-gold);">EXPRESS</span></div>
+    <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="medical.html" class="nav-link">MEDICAL</a>
+        <a href="middle-mile.html" class="nav-link">MIDDLE MILE</a>
+        <a href="final-mile.html" class="nav-link">FINAL MILE</a>
+        <a href="logistics.html" class="nav-link">SOVEREIGN OS</a>
+        <a href="drivers.html" class="nav-link">DRIVERS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+        <a href="login.html" class="nav-link">LOGIN</a>
+        <a href="quote.html" class="btn-get-quote-nav" style="background-color: var(--asu-maroon); color: white; padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; font-weight: 700;">GET QUOTE</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero-contact">
+    <h1>Contact Valley Express Dispatch</h1>
+    <p>24/7 AI Dispatcher · Real Humans On Call · Arizona's Trusted Medical & Logistics Partner</p>
+</header>
+
+<div class="container">
+    <!-- Contact Info + Form -->
+    <div class="two-columns">
+        <div class="info-card">
+            <h3><i class="fas fa-map-marker-alt"></i> Headquarters</h3>
+            <div class="contact-detail"><i class="fas fa-building"></i> <span>2942 N 24th St, Phoenix, AZ 85016</span></div>
+            <div class="contact-detail"><i class="fas fa-phone-alt"></i> <a href="tel:6232462409" style="color:var(--asu-maroon); text-decoration: none;">623-246-2409</a></div>
+            <div class="contact-detail"><i class="fas fa-envelope"></i> <a href="mailto:support@valleyexpresstransport.com" style="color:var(--asu-maroon); text-decoration: none;">support@valleyexpresstransport.com</a></div>
+            <div class="contact-detail"><i class="fas fa-truck"></i> <span>DOT 4444823 | MC 1750739</span></div>
+            <hr style="margin: 1.5rem 0; opacity: 0.1;">
+            <h3><i class="fas fa-clock"></i> Dispatch Hours</h3>
+            <p style="font-weight: 600;">Mon–Fri: 6am – 10pm<br>Sat–Sun: 8am – 8pm<br><span style="color: var(--stat-red);">Emergency STAT: 24/7 On-Call Deployment</span></p>
+        </div>
+        <div class="form-card">
+            <h3><i class="fas fa-paper-plane"></i> Send a Message</h3>
+            <form id="contactForm">
+                <div class="form-group"><input type="text" placeholder="Full Name" required></div>
+                <div class="form-group"><input type="email" placeholder="Email Address" required></div>
+                <div class="form-group"><input type="tel" placeholder="Phone (optional)"></div>
+                <div class="form-group">
+                    <select>
+                        <option>General Inquiry</option>
+                        <option>Medical / STAT</option>
+                        <option>Middle Mile Quote</option>
+                        <option>Final Mile Quote</option>
+                        <option>Driver Application</option>
+                    </select>
+                </div>
+                <div class="form-group"><textarea rows="3" placeholder="How can we help you today?"></textarea></div>
+                <button type="submit" class="btn-primary">Transmit Message →</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- AI Dispatcher + FAQ Row -->
+    <div class="chat-faq-row">
+        <!-- AI Chatbot -->
+        <div class="chat-widget">
+            <div class="chat-header">
+                <i class="fas fa-robot" style="font-size: 1.5rem; color: var(--asu-gold);"></i>
+                <div style="font-family: 'Outfit', sans-serif; font-weight: 800;">AI Dispatcher</div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">👋 Hi, I'm the Valley Express AI dispatcher. Ask me about medical courier services, middle mile, final mile, certifications, or rates!</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="e.g., Do you do hotshot delivery?">
+                <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <!-- FAQ Accordion -->
+        <div class="faq-section">
+            <h3 style="color: var(--asu-maroon);"><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+            <div class="faq-item">
+                <button class="faq-question">What areas do you serve? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-answer"><p>Phoenix metro, Tucson, Flagstaff – and surrounding Arizona cities. Same-day service available across the I-10 and I-17 corridors.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Are you HIPAA certified? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-answer"><p>Yes. We are HIPAA compliant, Bloodborne Pathogen certified, and offer TWIC/Hazmat drivers for sensitive medical shipments.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">What vehicles do you use? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-answer"><p>Our fleet includes sedans for documents, Sprinter vans for high-volume routes, and box trucks (16-26ft) with liftgates for industrial freight.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">How do I get an instant quote? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-answer"><p>Use our online quote form, call 623-246-2409, or ask the AI dispatcher for an estimated rate based on your parameters.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">What is your DOT/MC number? <i class="fas fa-chevron-down"></i></button>
+                <div class="faq-answer"><p>DOT 4444823 | MC 1750739 – fully licensed and insured for intrastate Arizona operations.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Map -->
+    <div class="map-container">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3325.847678223084!2d-112.07402388480259!3d33.47625567665415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872b12f5b3e4b2e7%3A0x7c8b3e2c9f5b8a1d!2s2942%20N%2024th%20St%2C%20Phoenix%2C%20AZ%2085016!5e0!3m2!1sen!2sus!4v1712345678901!5m2!1sen!2sus" 
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+    </div>
+
+    <!-- Terms Section Restored -->
+    <div class="terms-section">
+        <h2 style="text-align: center; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">Valley Express Terms of Use</h2>
+        <p style="text-align: center; margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-muted);">Last updated 11/30/2023 04:14:03 PM UTC</p>
+        
+        <div class="terms-content">
+            <p>These Terms of Use (the “Terms”) are a binding contract between you, an individual user (“you”) and Valley Express Transport LLC (collectively, “Valley Express”, “us” or “we”) governing your use of the Valley Express mobile application (the “App”) and any website or online property under Valley Express’s control (the “Website” and collectively with the App, the “Services”).</p>
+
+            <p>You agree that by visiting, installing or accessing the Services or by registering or using the Services, you are entering a legally binding agreement with Valley Express based on the Terms, the Privacy Policy, the Delivery Agreement Terms, the Driver’s Responsibilities and the Customer’s Responsibilities, which are hereby incorporated by reference (collectively referred to as the “Agreement”).</p>
+
+            <h3 style="color: var(--asu-maroon); margin-top: 1.5rem; font-family: 'Outfit', sans-serif;">1. Valley Express as a Marketplace</h3>
+            <p>Valley Express operates as a marketplace to connect and facilitate agreements between independent third-party transportation carriers (“Drivers”) and businesses in need of transportation services (“Customers”) for items (“Items”). VALLEY EXPRESS IS NOT A TRANSPORTATION CARRIER.</p>
+
+            <h3 style="color: var(--asu-maroon); margin-top: 1.5rem; font-family: 'Outfit', sans-serif;">2. Basic Terms</h3>
+            <p>You are responsible for your use of the Services and for any consequences thereof. You may use the Services only if you can form a binding contract with Valley Express and are not a person barred from accessing the Services under the laws of the United States.</p>
+
+            <h3 style="color: var(--asu-maroon); margin-top: 1.5rem; font-family: 'Outfit', sans-serif;">3. Privacy</h3>
+            <p>Your use of the Services and information you provide to Valley Express are subject to the Privacy Policy. You understand that through your use of the Services you consent to the collection and use of this information.</p>
+
+            <p><em>Note: Full legal documentation is available upon request from Valley Express Legal Department.</em></p>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Valley Express Transport LLC – Arizona's Trusted Medical & Logistics Partner</p>
+    <p style="font-size: 0.8rem; opacity: 0.7;">HIPAA · Bloodborne Pathogen · TWIC · Hazmat Certified | DOT 4444823 | MC 1750739</p>
+</footer>
+
+<script>
+    // ========== AI DISPATCHER KNOWLEDGE BASE ==========
+    function getAIResponse(msg) {
+        const q = msg.toLowerCase();
+        if (q.match(/who|valley express|company/)) return "Valley Express Transport LLC – medical, middle mile, final mile logistics. Based in Phoenix, AZ. DOT 4444823, MC 1750739.";
+        if (q.match(/medical|hipaa|bloodborne|specimen|lab|pharmaceutical/)) return "We offer HIPAA-compliant medical courier: STAT specimens, blood/plasma, pharmaceutical transport, and hospital routes. All drivers are Bloodborne Pathogen certified.";
+        if (q.match(/middle mile|b2b|phx to tucson|phx to flagstaff/)) return "Middle mile: Sprinter vans & box trucks for B2B freight between Phoenix, Tucson, and Flagstaff. Scheduled LTL and full truckload.";
+        if (q.match(/final mile|hotshot|same.day|warehouse|industrial|engineering|court|title|escrow/)) return "Final mile services: hotshot, same-day, warehouse, industrial, engineering, court, and title/escrow/bank deliveries. Sedans, Sprinters, box trucks available.";
+        if (q.match(/sedan|sprinter|box truck|fleet/)) return "Fleet: sedans (documents), Sprinter vans (2,500 lbs), box trucks (10,000 lbs). All maintained and driven by certified professionals.";
+        if (q.match(/area|phoenix|tucson|flagstaff|arizona/)) return "We serve Phoenix metro, Tucson, and Flagstaff – plus surrounding areas. Same-day in PHX and TUC.";
+        if (q.match(/twic|hazmat|certified|osha/)) return "Certifications: HIPAA, OSHA Bloodborne Pathogen, TWIC credential, Hazmat endorsement for Category B substances.";
+        if (q.match(/phone|email|address|contact/)) return "Contact: 623-246-2409, support@valleyexpresstransport.com, 2942 N 24th St, Phoenix, AZ 85016.";
+        if (q.match(/quote|price|cost|rate/)) return "For an instant quote, use our online form, call us, or email. Pricing depends on distance, vehicle, and urgency (medical compliance fee applies).";
+        if (q.match(/dot|mc number/)) return "DOT: 4444823 | MC: 1750739. Fully licensed and insured for Arizona intrastate operations.";
+        return "I'm trained on Valley Express logistics. Ask about our medical, middle mile, final mile services, certifications, rates, or contact info. Or call 623-246-2409 to speak with a human.";
+    }
+
+    // Chat UI
+    const messagesDiv = document.getElementById('chatMessages');
+    const inputChat = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function addMessage(text, isUser) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+        msgDiv.textContent = text;
+        messagesDiv.appendChild(msgDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    function handleSend() {
+        const txt = inputChat.value.trim();
+        if (!txt) return;
+        addMessage(txt, true);
+        inputChat.value = '';
+        setTimeout(() => {
+            const reply = getAIResponse(txt);
+            addMessage(reply, false);
+        }, 200);
+    }
+    sendBtn.addEventListener('click', handleSend);
+    inputChat.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const parent = btn.closest('.faq-item');
+            parent.classList.toggle('active');
+        });
+    });
+
+    // Contact form alert
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Message encrypted and transmitted! A Valley Express dispatcher will reply within 1 hour.');
+        e.target.reset();
+    });
+</script>
+</body>
+</html>

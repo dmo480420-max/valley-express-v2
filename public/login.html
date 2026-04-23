@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Sovereign OS Login – Valley Express Transport</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Outfit:wght@200;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #FEF9E8;
+            margin: 0;
+            overflow: hidden;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 3rem;
+            border-radius: 2rem;
+            box-shadow: 0 25px 60px rgba(140, 29, 64, 0.1);
+            border: 1px solid var(--asu-gold);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .logo-mark {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--asu-maroon);
+            margin-bottom: 0.5rem;
+        }
+        .logo-mark span {
+            color: var(--asu-gold);
+        }
+        .login-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--maroon-dark);
+            letter-spacing: 0.05em;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--asu-maroon);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            background: #fafafa;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--asu-maroon);
+            background: white;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--asu-maroon);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        .login-btn:hover {
+            background: var(--maroon-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(140, 29, 64, 0.2);
+        }
+        .footer-links {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .footer-links a {
+            color: var(--asu-maroon);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        /* Background decorative elements */
+        .decoration {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--asu-gold) 0%, transparent 70%);
+            opacity: 0.1;
+            border-radius: 50%;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="decoration" style="top: -200px; right: -200px;"></div>
+<div class="decoration" style="bottom: -200px; left: -200px;"></div>
+
+<div class="login-container">
+    <div class="logo-mark">VALLEY <span>EXPRESS</span></div>
+    <div class="login-title">SOVEREIGN OS PORTAL</div>
+    
+    <form onsubmit="event.preventDefault(); window.location.href='index.html';">
+        <div class="form-group">
+            <label>Employee / Driver ID</label>
+            <input type="text" placeholder="VE-XXXXX" required>
+        </div>
+        <div class="form-group">
+            <label>Secure Keyphrase</label>
+            <input type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="login-btn">AUTHENTICATE</button>
+    </form>
+    
+    <div class="footer-links">
+        <p>Locked out? <a href="contact.html">Contact Dispatch</a></p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.6;">Unauthorized access is strictly monitored. © 2026 Valley Express Transport.</p>
+    </div>
+</div>
+
+</body>
+</html>

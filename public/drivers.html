@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Driver Activation Portal – Valley Express</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@200;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/theme.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, var(--asu-maroon) 0%, var(--maroon-dark) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 0 0 3rem 3rem;
+            margin-bottom: 3rem;
+        }
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .req-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(140, 29, 64, 0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+        .req-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--asu-gold);
+            box-shadow: 0 10px 25px rgba(140, 29, 64, 0.08);
+        }
+        .req-card i {
+            font-size: 2rem;
+            color: var(--asu-maroon);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .application-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--asu-gold);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            margin-top: 3rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--asu-maroon);
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #fafafa;
+            transition: all 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--asu-maroon);
+            background: white;
+        }
+        .upload-area {
+            border: 2px dashed #ddd;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            background: #fcfcfc;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .upload-area:hover {
+            border-color: var(--asu-maroon);
+            background: #fff8f8;
+        }
+        /* Mobile Menu Toggle Logic */
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--asu-maroon); cursor: pointer; }
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links { display: none; width: 100%; flex-direction: column; background: white; position: absolute; top: 80px; left: 0; padding: 1rem; }
+            .nav-links.show { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--asu-maroon); letter-spacing: -0.03em;">VALLEY <span style="color: var(--asu-gold);">EXPRESS</span></div>
+    <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="medical.html" class="nav-link">MEDICAL</a>
+        <a href="middle-mile.html" class="nav-link">MIDDLE MILE</a>
+        <a href="final-mile.html" class="nav-link">FINAL MILE</a>
+        <a href="logistics.html" class="nav-link">SOVEREIGN OS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+        <a href="login.html" class="nav-link">LOGIN</a>
+        <a href="quote.html" class="btn-get-quote-nav" style="background-color: var(--asu-maroon); color: white; padding: 0.6rem 1.4rem; border-radius: 2rem; text-decoration: none; font-weight: 700;">GET QUOTE</a>
+    </div>
+</nav>
+
+<header class="hero">
+    <h1>Join the Elite Fleet</h1>
+    <p>Premium Rates · Optimized Routes · Arizona's Logistics Future</p>
+</header>
+
+<div class="container" style="padding-bottom: 5rem;">
+    <div class="content-card" style="margin-top: 0;">
+        <h2 style="border-left: 5px solid var(--asu-gold); padding-left: 1.5rem; color: var(--asu-maroon); font-family: 'Outfit', sans-serif;">Professional Requirements</h2>
+        <p>We don't hire just anyone. We hire the certified, the punctual, and the professionals who represent the Valley Express gold standard.</p>
+        
+        <div class="requirements-grid">
+            <div class="req-card">
+                <i class="fas fa-id-card"></i>
+                <strong>TWIC Credential</strong>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Required for 50% of our high-value medical and B2B contracts.</p>
+            </div>
+            <div class="req-card">
+                <i class="fas fa-biohazard"></i>
+                <strong>BBP Certification</strong>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">OSHA-compliant Bloodborne Pathogens training for medical assets.</p>
+            </div>
+            <div class="req-card">
+                <i class="fas fa-fire"></i>
+                <strong>Hazmat Endorsement</strong>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Required for pharmaceutical and industrial category B transport.</p>
+            </div>
+            <div class="req-card">
+                <i class="fas fa-truck-pickup"></i>
+                <strong>Reliable Asset</strong>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Vehicle (Sedan, Sprinter, or Box Truck) less than 10 years old.</p>
+            </div>
+        </div>
+
+        <h2 style="border-left: 5px solid var(--asu-gold); padding-left: 1.5rem; color: var(--asu-maroon); font-family: 'Outfit', sans-serif; margin-top: 3rem;">Why Drive With Us?</h2>
+        <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+            <li style="margin-bottom: 0.8rem;"><strong>Premium Rates</strong>: Higher per-mile and per-stop rates for certified professional drivers.</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Optimized Corridors</strong>: We focus on Phoenix, Tucson, and Flagstaff — keeping you moving, not waiting.</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Weekly Payouts</strong>: Direct deposit every Friday, no exceptions.</li>
+            <li style="margin-bottom: 0.8rem;"><strong>Mission Support</strong>: 24/7 dispatch and real-time navigation support from our Sovereign OS.</li>
+        </ul>
+
+        <div class="application-form">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-family: 'Outfit', sans-serif; color: var(--asu-maroon);">Fleet Activation Form</h2>
+            <form id="driverForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="your@email.com" required>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="form-group">
+                        <label>Vehicle Type</label>
+                        <select required>
+                            <option value="">Select Asset Type</option>
+                            <option>Sedan / SUV</option>
+                            <option>Sprinter Van</option>
+                            <option>Box Truck (16-26ft)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Certifications Held</label>
+                        <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                            <label style="text-transform: none; font-weight: 400;"><input type="checkbox" style="width: auto;"> TWIC</label>
+                            <label style="text-transform: none; font-weight: 400;"><input type="checkbox" style="width: auto;"> BBP</label>
+                            <label style="text-transform: none; font-weight: 400;"><input type="checkbox" style="width: auto;"> Hazmat</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Credential Upload (PDF/JPG)</label>
+                    <div class="upload-area" onclick="alert('File selector would open here')">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #ccc; margin-bottom: 1rem; display: block;"></i>
+                        <span>Drop your certifications here or click to browse</span>
+                    </div>
+                </div>
+                <button type="submit" class="button" style="width: 100%; padding: 1.5rem; font-size: 1.1rem; font-weight: 800;">Submit Activation Request</button>
+            </form>
+            <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 1.5rem;">Current approval time: 48 hours for pre-certified drivers.</p>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Valley Express Transport LLC – Arizona's Trusted Medical & Logistics Partner</p>
+    <p style="font-size: 0.9rem; opacity: 0.7;">HIPAA · Bloodborne Pathogen · TWIC · Hazmat Certified · Fully Insured</p>
+</footer>
+
+<script>
+    document.getElementById('driverForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Application received. Our compliance sentinel is reviewing your credentials. You will receive a status update via email within 48 hours.');
+    });
+</script>
+
+</body>
+</html>
