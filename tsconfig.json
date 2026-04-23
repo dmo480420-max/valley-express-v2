@@ -30,5 +30,13 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "jazzo-gco-zite-sovereign-orchestrator",
+    "jazzo-command-center",
+    "phoenix-logistics-os",
+    "valley-express-platform",
+    "scrapers",
+    "scratch"
+  ]
 }
